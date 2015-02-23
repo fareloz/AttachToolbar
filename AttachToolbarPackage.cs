@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using Attachmanager;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
@@ -8,7 +7,7 @@ using System;
 using System.ComponentModel.Design;
 using System.Runtime.InteropServices;
 
-namespace AttachManager
+namespace AttachToolbar
 {
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#100", "#102", "1.1", IconResourceID = 400)]
@@ -18,10 +17,10 @@ namespace AttachManager
     [ProvideAutoLoad(UIContextGuids.NoSolution)]
     [ProvideAutoLoad(UIContextGuids.SolutionExists)]
 
-    [Guid(GuidList.guidAttachManagerPkgString)]
-    public sealed class AttachManagerPackage : Package
+    [Guid(GuidList.guidAttachToolbarPkgString)]
+    public sealed class AttachToolbarPackage : Package
     {
-        public AttachManagerPackage()
+        public AttachToolbarPackage()
         {
         }
         
@@ -34,14 +33,14 @@ namespace AttachManager
 
             if (_env != null)
             {
-                _controller = new AttachManagerController(_env);
+                _controller = new AttachToolbarController(_env);
 
                 OleMenuCommandService mcs = GetService(typeof (IMenuCommandService)) as OleMenuCommandService;
                 if (mcs != null)
                 {
                     // Program names ComboBox
                     // Event on item selection
-                    CommandID programsComboCommandID = new CommandID(GuidList.guidAttachManagerCmdSet, (int)PkgCmdIDList.cmdidAttachProgramsCombo);
+                    CommandID programsComboCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachProgramsCombo);
                     OleMenuCommand programsComboCommand = new OleMenuCommand(new EventHandler(OnProgramsComboItemSelection), programsComboCommandID);
                     programsComboCommand.ParametersDescription = "$"; // accept any argument string
                     programsComboCommand.BeforeQueryStatus += BeforeQueryStatusPrograms;
@@ -49,17 +48,17 @@ namespace AttachManager
 
                     // Engine names ComboBox
                     // Event on item selection
-                    CommandID enginesComboCommandID = new CommandID(GuidList.guidAttachManagerCmdSet, (int)PkgCmdIDList.cmdidAttachEngineCombo);
+                    CommandID enginesComboCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachEngineCombo);
                     OleMenuCommand enginesComboCommand = new OleMenuCommand(new EventHandler(OnEnginesComboItemSelection), enginesComboCommandID);
                     enginesComboCommand.ParametersDescription = "$"; // accept any argument string
                     mcs.AddCommand(enginesComboCommand);
                     // Event on combo list expanding
-                    CommandID enginesComboGetListCommandID = new CommandID(GuidList.guidAttachManagerCmdSet, (int)PkgCmdIDList.cmdidAttachEngineComboGetList);
+                    CommandID enginesComboGetListCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachEngineComboGetList);
                     MenuCommand enginesComboGetListCommand = new OleMenuCommand(new EventHandler(OnEnginesComboGetList), enginesComboGetListCommandID);
                     mcs.AddCommand(enginesComboGetListCommand);
 
                     // Attach button
-                    CommandID attachButtonCommandID = new CommandID(GuidList.guidAttachManagerCmdSet, (int) PkgCmdIDList.cmdidAttachButton);
+                    CommandID attachButtonCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int) PkgCmdIDList.cmdidAttachButton);
                     OleMenuCommand attachButtonCommand = new OleMenuCommand(new EventHandler(OnAttachButtonClickCallback), attachButtonCommandID);
                     attachButtonCommand.BeforeQueryStatus += BeforeQueryStatusAttach;
                     mcs.AddCommand(attachButtonCommand);
@@ -155,7 +154,7 @@ namespace AttachManager
             {
                 try
                 {
-                    uiShell.SetMRUComboTextW(new Guid[] { GuidList.guidAttachManagerCmdSet },
+                    uiShell.SetMRUComboTextW(new Guid[] { GuidList.guidAttachToolbarCmdSet },
                         (int)PkgCmdIDList.cmdidAttachProgramsCombo, State.AttachProgramName, 0);
                 }
                 catch (Exception exc)
@@ -172,7 +171,7 @@ namespace AttachManager
         }
 
         private DTE2 _env = null;
-        private AttachManagerController _controller;
+        private AttachToolbarController _controller;
         private SettingsManager _settings;
     }
 }

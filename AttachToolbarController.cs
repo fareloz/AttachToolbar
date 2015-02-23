@@ -5,11 +5,11 @@ using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Debugger.Interop;
 
-namespace AttachManager
+namespace AttachToolbar
 {
-    public class AttachManagerController : IDebugEventCallback2
+    public class AttachToolbarController : IDebugEventCallback2
     {
-        public AttachManagerController(DTE2 dte)
+        public AttachToolbarController(DTE2 dte)
         {
             _env = dte;
             _dbg = _env.Debugger as Debugger2;
@@ -46,7 +46,7 @@ namespace AttachManager
             if (!found)
             {
                 MessageBox.Show("Failed to attach to " + processName + ".",
-                    "Attach Manager", 
+                    "Attach Toolbar", 
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }

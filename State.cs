@@ -1,4 +1,4 @@
-﻿namespace AttachManager
+﻿namespace AttachToolbar
 {
     static public class State
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace AttachManager
+namespace AttachToolbar
 {
     public enum AttachEngineType
     {

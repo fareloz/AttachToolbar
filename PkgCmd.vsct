@@ -6,15 +6,15 @@
   <Extern href="VSDbgCmd.h" />
   <Extern href="VsDebugGuids.h" />
 
-  <Commands package="guidAttachManagerPackage">
+  <Commands package="guidAttachToolbarPackage">
 
     <Menus>
 
-      <Menu guid="guidAttachManagerCommandSet" id="Toolbar" type="Toolbar">
+      <Menu guid="guidAttachToolbarCommandSet" id="Toolbar" type="Toolbar">
         <CommandFlag>DefaultDocked</CommandFlag>
         <Strings>
-          <ButtonText>Attach Manager</ButtonText>
-          <CommandName>Attach Manager</CommandName>
+          <ButtonText>Attach Toolbar</ButtonText>
+          <CommandName>Attach Toolbar</CommandName>
         </Strings>
       </Menu>
 
@@ -22,10 +22,10 @@
     
     <Groups>
 
-      <Group guid="guidAttachManagerCommandSet" id="ToolbarGroup" priority="0x0000">
-        <Parent guid="guidAttachManagerCommandSet" id="Toolbar" />
+      <Group guid="guidAttachToolbarCommandSet" id="ToolbarGroup" priority="0x0000">
+        <Parent guid="guidAttachToolbarCommandSet" id="Toolbar" />
       </Group>
-      <Group guid="guidAttachManagerCommandSet" id="MenuGroup" priority="0x0000">
+      <Group guid="guidAttachToolbarCommandSet" id="MenuGroup" priority="0x0000">
         <Parent guid="guidVSDebugGroup" id="IDM_DEBUG_MENU" />
       </Group>
 
@@ -33,25 +33,25 @@
 
     <Combos>
 
-      <Combo guid="guidAttachManagerCommandSet" id="cmdidProgramsCombo" priority="0x0010" type="MRUCombo" defaultWidth="130" idCommandList="cmdidProgramsComboGetList">
-        <Parent guid="guidAttachManagerCommandSet" id="ToolbarGroup"/>
+      <Combo guid="guidAttachToolbarCommandSet" id="cmdidProgramsCombo" priority="0x0010" type="MRUCombo" defaultWidth="130" idCommandList="cmdidProgramsComboGetList">
+        <Parent guid="guidAttachToolbarCommandSet" id="ToolbarGroup"/>
         <CommandFlag>CommandWellOnly</CommandFlag>
         <Strings>
           <ButtonText>Program</ButtonText>
           <ToolTipText>Select program name to attach to</ToolTipText>
-          <CanonicalName>AttachManager_ProgramNamesList</CanonicalName>
-          <CommandName>AttachManager_ProgramNamesList</CommandName>
+          <CanonicalName>AttachToolbar_ProgramNamesList</CanonicalName>
+          <CommandName>AttachToolbar_ProgramNamesList</CommandName>
         </Strings>
       </Combo>
 
-      <Combo guid="guidAttachManagerCommandSet" id="cmdidEnginesCombo" priority="0x0010" type="DropDownCombo" defaultWidth="130" idCommandList="cmdidEnginesComboGetList">
-        <Parent guid="guidAttachManagerCommandSet" id="ToolbarGroup"/>
+      <Combo guid="guidAttachToolbarCommandSet" id="cmdidEnginesCombo" priority="0x0010" type="DropDownCombo" defaultWidth="130" idCommandList="cmdidEnginesComboGetList">
+        <Parent guid="guidAttachToolbarCommandSet" id="ToolbarGroup"/>
         <CommandFlag>CommandWellOnly</CommandFlag>
         <Strings>
           <ButtonText>Engine</ButtonText>
           <ToolTipText>Select engine type</ToolTipText>
-          <CanonicalName>AttachManager_AttachEnginesList</CanonicalName>
-          <CommandName>AttachManager_AttachEnginesList</CommandName>
+          <CanonicalName>AttachToolbar_AttachEnginesList</CanonicalName>
+          <CommandName>AttachToolbar_AttachEnginesList</CommandName>
         </Strings>
       </Combo>
 
@@ -59,25 +59,25 @@
     
     <Buttons>
       
-      <Button guid="guidAttachManagerCommandSet" id="cmdidAttachButton" priority="0x0010" type="Button">
-        <Parent guid="guidAttachManagerCommandSet" id="MenuGroup" />
+      <Button guid="guidAttachToolbarCommandSet" id="cmdidAttachButton" priority="0x0010" type="Button">
+        <Parent guid="guidAttachToolbarCommandSet" id="MenuGroup" />
         <Icon guid="guidImages" id="bmpPicAttach" />
         <Strings>
           <ButtonText>Attach to program</ButtonText>
           <ToolTipText>Attach to selected program with selected engine</ToolTipText>
-          <CanonicalName>AttachManager_AttachButton</CanonicalName>
-          <CommandName>AttachManager_AttachButton</CommandName>
+          <CanonicalName>AttachToolbar_AttachButton</CanonicalName>
+          <CommandName>AttachToolbar_AttachButton</CommandName>
         </Strings>
       </Button>
       
-      <Button guid="guidAttachManagerCommandSet" id="cmdidAttachButton" priority="0x0010" type="Button">
-        <Parent guid="guidAttachManagerCommandSet" id="ToolbarGroup" />
+      <Button guid="guidAttachToolbarCommandSet" id="cmdidAttachButton" priority="0x0010" type="Button">
+        <Parent guid="guidAttachToolbarCommandSet" id="ToolbarGroup" />
         <Icon guid="guidImages" id="bmpPicAttach" />
         <Strings>
           <ButtonText>Attach to program</ButtonText>
           <ToolTipText>Attach to selected program with selected engine</ToolTipText>
-          <CanonicalName>AttachManager_AttachButton</CanonicalName>
-          <CommandName>AttachManager_AttachButton</CommandName>
+          <CanonicalName>AttachToolbar_AttachButton</CanonicalName>
+          <CommandName>AttachToolbar_AttachButton</CommandName>
         </Strings>
       </Button>
 
@@ -91,7 +91,7 @@
 
   <KeyBindings>
 
-    <KeyBinding guid="guidAttachManagerCommandSet" id="cmdidAttachButton"
+    <KeyBinding guid="guidAttachToolbarCommandSet" id="cmdidAttachButton"
       editor="guidVSStd97"
       key1="P" mod1="Control" 
       key2 ="P" mod2="Control">
@@ -101,9 +101,9 @@
 
   <Symbols>
 
-    <GuidSymbol name="guidAttachManagerPackage" value="{00C35747-E7C6-411A-BB9C-D68ABCF83145}" />
+    <GuidSymbol name="guidAttachToolbarPackage" value="{00C35747-E7C6-411A-BB9C-D68ABCF83145}" />
     
-    <GuidSymbol name="guidAttachManagerCommandSet" value="{886E472F-D4E6-47F2-AF41-8A9D38067890}">
+    <GuidSymbol name="guidAttachToolbarCommandSet" value="{886E472F-D4E6-47F2-AF41-8A9D38067890}">
       
       <IDSymbol name="Toolbar" value="0x1000" />
       <IDSymbol name="ToolbarGroup" value="0x1050" />

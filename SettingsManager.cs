@@ -1,10 +1,9 @@
 ﻿using System;
-using AttachManager;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell.Settings;
 
-namespace Attachmanager
+namespace AttachToolbar
 {
     public class SettingsManager
     {
@@ -17,26 +16,26 @@ namespace Attachmanager
 
         public void LoadSettings()
         {
-            if (_settings.CollectionExists("AttachManager") == false)
+            if (_settings.CollectionExists("AttachToolbar") == false)
             {
                 CreateDefaultSettings();
             }
 
-            State.AttachProgramName = _settings.GetString("AttachManager", "LastProgramName");
-            State.AttachEngineType = _settings.GetString("AttachManager", "LastAttachType").GetAttachType();
+            State.AttachProgramName = _settings.GetString("AttachToolbar", "LastProgramName");
+            State.AttachEngineType = _settings.GetString("AttachToolbar", "LastAttachType").GetAttachType();
         }
 
         public void SaveSettings()
         {
-            _settings.SetString("AttachManager", "LastProgramName", State.AttachProgramName);
-            _settings.SetString("AttachManager", "LastAttachType", State.AttachEngineType.GetEngineName());
+            _settings.SetString("AttachToolbar", "LastProgramName", State.AttachProgramName);
+            _settings.SetString("AttachToolbar", "LastAttachType", State.AttachEngineType.GetEngineName());
         }
 
         private void CreateDefaultSettings()
         {
-            _settings.CreateCollection("AttachManager");
-            _settings.SetString("AttachManager", "LastProgramName", "");
-            _settings.SetString("AttachManager", "LastAttachType", AttachEngineType.Native.GetEngineName());
+            _settings.CreateCollection("AttachToolbar");
+            _settings.SetString("AttachToolbar", "LastProgramName", "");
+            _settings.SetString("AttachToolbar", "LastAttachType", AttachEngineType.Native.GetEngineName());
         }
 
         private readonly WritableSettingsStore _settings;

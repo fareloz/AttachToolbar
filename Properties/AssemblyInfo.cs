@@ -14,11 +14,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Attach manager")]
+[assembly: AssemblyTitle("Attach Toolbar")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FulcrumWeb")]
-[assembly: AssemblyProduct("Attach Manager")]
+[assembly: AssemblyProduct("Attach Toolbar")]
 [assembly: AssemblyCopyright("Copyright © fareloz")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]   

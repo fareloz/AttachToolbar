@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AttachManager
+namespace AttachToolbar
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
     public class AttachEngineNameAttribute : Attribute
