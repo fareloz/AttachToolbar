@@ -8,8 +8,6 @@
 	</Metadata>
 	<Installation InstalledByMsi="false" AllUsers="true">
 		<InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[11.0,)" />
-		<InstallationTarget Version="[14.0,15.0)" Id="Microsoft.VisualStudio.VSWinDesktopExpress" />
-		<InstallationTarget Version="[9.0,15.0)" Id="Microsoft.VisualStudio.VSWinExpress" />
 	</Installation>
 	<Dependencies>
 		<Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.0,)" />
