@@ -93,8 +93,7 @@
 
     <KeyBinding guid="guidAttachToolbarCommandSet" id="cmdidAttachButton"
       editor="guidVSStd97"
-      key1="P" mod1="Control" 
-      key2 ="P" mod2="Control">
+      key1="P" mod1="Control Shift" >
     </KeyBinding>
 
   </KeyBindings>
