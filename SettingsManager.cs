@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Settings;
 using Microsoft.VisualStudio.Shell.Settings;
@@ -21,21 +22,29 @@ namespace AttachToolbar
                 CreateDefaultSettings();
             }
 
-            State.AttachProgramName = _settings.GetString("AttachToolbar", "LastProgramName");
-            State.AttachEngineType = _settings.GetString("AttachToolbar", "LastAttachType").GetAttachType();
+            string attachList = _settings.GetString("AttachToolbar", "ProcessList");
+            State.ProcessList = attachList.Split(';').ToList();
+
+            string lastProgram = _settings.GetString("AttachToolbar", "LastProcessName");
+            State.ProcessName = State.ProcessList.Contains(lastProgram) ? 
+                lastProgram : State.ProcessList.First();
+
+            State.EngineType = _settings.GetString("AttachToolbar", "LastEngineType").GetAttachType();
         }
 
         public void SaveSettings()
         {
-            _settings.SetString("AttachToolbar", "LastProgramName", State.AttachProgramName);
-            _settings.SetString("AttachToolbar", "LastAttachType", State.AttachEngineType.GetEngineName());
+            _settings.SetString("AttachToolbar", "ProcessList", string.Join(";", State.ProcessList));
+            _settings.SetString("AttachToolbar", "LastProcessName", State.ProcessName);
+            _settings.SetString("AttachToolbar", "LastEngineType", State.EngineType.GetEngineName());
         }
 
         private void CreateDefaultSettings()
         {
             _settings.CreateCollection("AttachToolbar");
-            _settings.SetString("AttachToolbar", "LastProgramName", "");
-            _settings.SetString("AttachToolbar", "LastAttachType", AttachEngineType.Native.GetEngineName());
+            _settings.SetString("AttachToolbar", "ProcessList", "");
+            _settings.SetString("AttachToolbar", "LastProcessName", "");
+            _settings.SetString("AttachToolbar", "LastEngineType", AttachEngineType.Native.GetEngineName());
         }
 
         private readonly WritableSettingsStore _settings;

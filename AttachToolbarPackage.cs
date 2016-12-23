@@ -80,12 +80,12 @@ namespace AttachToolbar
                 if (outValue != IntPtr.Zero)
                 {
                     // when vOut is non-null, the IDE is requesting the current value for the combo
-                    Marshal.GetNativeVariantForObject(State.AttachProgramName, outValue);
+                    Marshal.GetNativeVariantForObject(State.ProcessName, outValue);
                 }
                 else if (newChoice != null)
                 {
                     // new value was selected or typed in
-                    State.AttachProgramName = newChoice;
+                    State.ProcessName = newChoice;
                     _settings.SaveSettings();
                 }
             }
@@ -102,11 +102,11 @@ namespace AttachToolbar
                 if (outValue != IntPtr.Zero)
                 {
                     // when outValue is non-null, the IDE is requesting the current value for the combo
-                    Marshal.GetNativeVariantForObject(State.AttachEngineType.GetEngineName(), outValue);
+                    Marshal.GetNativeVariantForObject(State.EngineType.GetEngineName(), outValue);
                 }
                 else if (newChoice != null)
                 {
-                    State.AttachEngineType = newChoice.GetAttachType();
+                    State.EngineType = newChoice.GetAttachType();
                     _settings.SaveSettings();
                 }
             }
@@ -131,7 +131,7 @@ namespace AttachToolbar
 
         private void OnAttachButtonClickCallback(object sender, EventArgs e)
         {
-            _controller.AttachTo(State.AttachProgramName, State.AttachEngineType);
+            _controller.AttachTo(State.ProcessName, State.EngineType);
         }
 
         private void BeforeQueryStatusAttach(object sender, EventArgs e)
@@ -151,7 +151,7 @@ namespace AttachToolbar
                 try
                 {
                     uiShell.SetMRUComboTextW(new[] { GuidList.guidAttachToolbarCmdSet },
-                        (int)PkgCmdIDList.cmdidAttachProgramsCombo, State.AttachProgramName, 0);
+                        (int)PkgCmdIDList.cmdidAttachProgramsCombo, State.ProcessName, 0);
                 }
                 catch (Exception exc)
                 {
