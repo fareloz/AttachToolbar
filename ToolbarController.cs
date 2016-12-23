@@ -17,6 +17,9 @@ namespace AttachToolbar
 
         public void AttachTo(string processName, EngineType attachEngineType) 
         {
+            if(processName == String.Empty)
+                return;
+
             bool found = false;
             if (State.IsAttached) {
                 _dbg.DetachAll();
