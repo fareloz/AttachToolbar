@@ -51,6 +51,8 @@ namespace AttachToolbar
             listviewProcessList.TabIndex = 4;
             listviewProcessList.UseCompatibleStateImageBehavior = false;
             listviewProcessList.View = View.Details;
+            foreach (var processName in State.ProcessList)
+                listviewProcessList.Items.Add(processName);
             // 
             // labelProcessName
             // 
@@ -124,7 +126,8 @@ namespace AttachToolbar
             if (listviewProcessList.SelectedIndices.Count == 0)
                 return;
 
-            while (listviewProcessList.SelectedIndices.Contains(State.ProcessIndex))
+            while (State.ProcessIndex < listviewProcessList.Items.Count &&
+                listviewProcessList.SelectedIndices.Contains(State.ProcessIndex))
             {
                 ++State.ProcessIndex;
                 if (State.ProcessIndex >= listviewProcessList.SelectedIndices.Count)
@@ -141,9 +144,9 @@ namespace AttachToolbar
                 State.ProcessIndex = -1;
 
             State.ProcessList.Clear();
-            foreach (ListView.ListViewItemCollection item in listviewProcessList.Items)
+            foreach (ListViewItem item in listviewProcessList.Items)
             {
-                State.ProcessList.Add(item[0].Text);
+                State.ProcessList.Add(item.Text);
             }
         }
 
