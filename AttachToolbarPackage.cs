@@ -24,48 +24,52 @@ namespace AttachToolbar
         {
             base.Initialize();
             _env = GetService(typeof(SDTE)) as DTE2;
+            if (_env == null)
+                throw new Exception("Failed to get DTE service.");
 
             _settings = new SettingsManager(this);
-
-            if (_env != null)
-            {
-                _controller = new AttachToolbarController(_env);
-
-                OleMenuCommandService mcs = GetService(typeof (IMenuCommandService)) as OleMenuCommandService;
-                if (mcs != null)
-                {
-                    // Program names ComboBox
-                    // Event on item selection
-                    CommandID programsComboCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachProgramsCombo);
-                    OleMenuCommand programsComboCommand = new OleMenuCommand(OnProgramsComboItemSelection, programsComboCommandID);
-                    programsComboCommand.ParametersDescription = "$"; // accept any argument string
-                    programsComboCommand.BeforeQueryStatus += BeforeQueryStatusPrograms;
-                    mcs.AddCommand(programsComboCommand);
-
-                    // Engine names ComboBox
-                    // Event on item selection
-                    CommandID enginesComboCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachEngineCombo);
-                    OleMenuCommand enginesComboCommand = new OleMenuCommand(OnEnginesComboItemSelection, enginesComboCommandID);
-                    enginesComboCommand.ParametersDescription = "$"; // accept any argument string
-                    mcs.AddCommand(enginesComboCommand);
-                    // Event on combo list expanding
-                    CommandID enginesComboGetListCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachEngineComboGetList);
-                    MenuCommand enginesComboGetListCommand = new OleMenuCommand(OnEnginesComboGetList, enginesComboGetListCommandID);
-                    mcs.AddCommand(enginesComboGetListCommand);
-
-                    // Attach button
-                    CommandID attachButtonCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int) PkgCmdIDList.cmdidAttachButton);
-                    OleMenuCommand attachButtonCommand = new OleMenuCommand(OnAttachButtonClickCallback, attachButtonCommandID);
-                    attachButtonCommand.BeforeQueryStatus += BeforeQueryStatusAttach;
-                    mcs.AddCommand(attachButtonCommand);
-                }
-            }
+            InitializeControls();
 
             var debugger = GetService(typeof(SVsShellDebugger)) as IVsDebugger;
-            if (debugger != null)
-            {
-                if (debugger.AdviseDebugEventCallback(_controller) != VSConstants.S_OK) ;
-            }
+            if (debugger == null)
+                throw new Exception("Failed to get debugger service.");
+
+            if (debugger.AdviseDebugEventCallback(_controller) != VSConstants.S_OK)
+                throw new Exception("Failed to set debugger event callback.");
+        }
+
+        private void InitializeControls()
+        {
+            _controller = new AttachToolbarController(_env);
+
+            OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+            if (mcs == null)
+                throw new Exception("Failed to get Menu command service.");
+
+            // Program names ComboBox
+            // Event on item selection
+            CommandID programsComboCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachProgramsCombo);
+            OleMenuCommand programsComboCommand = new OleMenuCommand(OnProgramsComboItemSelection, programsComboCommandID);
+            programsComboCommand.ParametersDescription = "$"; // accept any argument string
+            programsComboCommand.BeforeQueryStatus += BeforeQueryStatusPrograms;
+            mcs.AddCommand(programsComboCommand);
+
+            // Engine names ComboBox
+            // Event on item selection
+            CommandID enginesComboCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachEngineCombo);
+            OleMenuCommand enginesComboCommand = new OleMenuCommand(OnEnginesComboItemSelection, enginesComboCommandID);
+            enginesComboCommand.ParametersDescription = "$"; // accept any argument string
+            mcs.AddCommand(enginesComboCommand);
+            // Event on combo list expanding
+            CommandID enginesComboGetListCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachEngineComboGetList);
+            MenuCommand enginesComboGetListCommand = new OleMenuCommand(OnEnginesComboGetList, enginesComboGetListCommandID);
+            mcs.AddCommand(enginesComboGetListCommand);
+
+            // Attach button
+            CommandID attachButtonCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachButton);
+            OleMenuCommand attachButtonCommand = new OleMenuCommand(OnAttachButtonClickCallback, attachButtonCommandID);
+            attachButtonCommand.BeforeQueryStatus += BeforeQueryStatusAttach;
+            mcs.AddCommand(attachButtonCommand);
         }
 
         private void OnProgramsComboItemSelection(object sender, EventArgs e)
