@@ -28,7 +28,7 @@ namespace AttachToolbar
             if (_env == null)
                 throw new Exception("Failed to get DTE service.");
 
-            _settings = new SettingsManager(this);
+            State.Settings = new SettingsManager(this);
             InitializeControls();
 
             var debugger = GetService(typeof(SVsShellDebugger)) as IVsDebugger;
@@ -95,7 +95,7 @@ namespace AttachToolbar
                 {
                     // new value was selected or typed in
                     State.ProcessName = newChoice;
-                    _settings.SaveSettings();
+                    State.Settings.SaveSettings();
                 }
             }
         }
@@ -131,7 +131,7 @@ namespace AttachToolbar
                 else if (newChoice != null)
                 {
                     State.EngineType = newChoice.GetAttachType();
-                    _settings.SaveSettings();
+                    State.Settings.SaveSettings();
                 }
             }
         }
@@ -170,6 +170,5 @@ namespace AttachToolbar
 
         private DTE2 _env;
         private ToolbarController _controller;
-        private SettingsManager _settings;
     }
 }

@@ -4,11 +4,13 @@ namespace AttachToolbar
 {
     internal static class State
     {
-        public static int ProcessIndex = -1;
-        public static List<string> ProcessList = new List<string>();
-        public static EngineType EngineType = EngineType.Native;
-        public static bool IsAttached = false;
-
+        public static void Clear()
+        {
+            ProcessList.Clear();
+            EngineType = EngineType.Native;
+            IsAttached = false;
+            ProcessIndex = -1;
+        }
         public static string ProcessName
         {
             get
@@ -25,12 +27,11 @@ namespace AttachToolbar
             }
         }
 
-        public static void Clear()
-        {
-            ProcessList.Clear();
-            EngineType = EngineType.Native;
-            IsAttached = false;
-            ProcessIndex = -1;
-        }
+
+        public static int ProcessIndex = -1;
+        public static List<string> ProcessList = new List<string>();
+        public static EngineType EngineType = EngineType.Native;
+        public static bool IsAttached = false;
+        public static SettingsManager Settings;
     }
 }
