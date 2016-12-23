@@ -1,9 +1,9 @@
 ﻿namespace AttachToolbar
 {
-    static public class State
+    public static class State
     {
-        static public string AttachProgramName = "";
-        static public AttachEngineType AttachEngineType = AttachEngineType.Native;
-        static public bool IsAttached = false;
+        public static string AttachProgramName = "";
+        public static AttachEngineType AttachEngineType = AttachEngineType.Native;
+        public static bool IsAttached = false;
     }
 }

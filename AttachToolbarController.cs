@@ -26,11 +26,11 @@ namespace AttachToolbar
             foreach (Process2 process in _dbg.LocalProcesses)
             {
                 string fileName = Path.GetFileName(process.Name);
-                if (fileName.Equals(processName, StringComparison.InvariantCultureIgnoreCase))
+                if (fileName != null && fileName.Equals(processName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     found = true;
                     Transport transport = _dbg.Transports.Item("default");
-                    Engine[] engines = new[] { transport.Engines.Item(attachEngineType.GetEngineName()) };
+                    Engine[] engines = { transport.Engines.Item(attachEngineType.GetEngineName()) };
                     
                     try {
                         process.Attach2(engines);
@@ -45,7 +45,8 @@ namespace AttachToolbar
             State.IsAttached = found;
             if (!found)
             {
-                MessageBox.Show("Failed to attach to " + processName + ".",
+                MessageBox.Show(
+                    $"Failed to attach to {processName}.",
                     "Attach Toolbar", 
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);

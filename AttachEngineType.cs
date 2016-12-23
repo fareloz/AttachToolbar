@@ -5,13 +5,13 @@ namespace AttachToolbar
 {
     public enum AttachEngineType
     {
-        [AttachEngineNameAttribute("Native")]
+        [AttachEngineName("Native")]
         Native = 1,
 
-        [AttachEngineNameAttribute("Managed")]
+        [AttachEngineName("Managed")]
         Managed = 2,
 
-        [AttachEngineNameAttribute("Managed/Native")]
+        [AttachEngineName("Managed/Native")]
         Both = 3
     }
 
@@ -31,7 +31,7 @@ namespace AttachToolbar
 
         public static AttachEngineType GetAttachType(this string engineName)
         {
-            Array enumValues = System.Enum.GetValues(typeof(AttachEngineType));
+            Array enumValues = Enum.GetValues(typeof(AttachEngineType));
             foreach (AttachEngineType type in enumValues)
             {
                 if (type.GetEngineName() == engineName)

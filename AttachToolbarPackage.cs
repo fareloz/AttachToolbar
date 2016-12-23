@@ -20,10 +20,6 @@ namespace AttachToolbar
     [Guid(GuidList.guidAttachToolbarPkgString)]
     public sealed class AttachToolbarPackage : Package
     {
-        public AttachToolbarPackage()
-        {
-        }
-        
         protected override void Initialize()
         {
             base.Initialize();
@@ -41,7 +37,7 @@ namespace AttachToolbar
                     // Program names ComboBox
                     // Event on item selection
                     CommandID programsComboCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachProgramsCombo);
-                    OleMenuCommand programsComboCommand = new OleMenuCommand(new EventHandler(OnProgramsComboItemSelection), programsComboCommandID);
+                    OleMenuCommand programsComboCommand = new OleMenuCommand(OnProgramsComboItemSelection, programsComboCommandID);
                     programsComboCommand.ParametersDescription = "$"; // accept any argument string
                     programsComboCommand.BeforeQueryStatus += BeforeQueryStatusPrograms;
                     mcs.AddCommand(programsComboCommand);
@@ -49,26 +45,26 @@ namespace AttachToolbar
                     // Engine names ComboBox
                     // Event on item selection
                     CommandID enginesComboCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachEngineCombo);
-                    OleMenuCommand enginesComboCommand = new OleMenuCommand(new EventHandler(OnEnginesComboItemSelection), enginesComboCommandID);
+                    OleMenuCommand enginesComboCommand = new OleMenuCommand(OnEnginesComboItemSelection, enginesComboCommandID);
                     enginesComboCommand.ParametersDescription = "$"; // accept any argument string
                     mcs.AddCommand(enginesComboCommand);
                     // Event on combo list expanding
                     CommandID enginesComboGetListCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachEngineComboGetList);
-                    MenuCommand enginesComboGetListCommand = new OleMenuCommand(new EventHandler(OnEnginesComboGetList), enginesComboGetListCommandID);
+                    MenuCommand enginesComboGetListCommand = new OleMenuCommand(OnEnginesComboGetList, enginesComboGetListCommandID);
                     mcs.AddCommand(enginesComboGetListCommand);
 
                     // Attach button
                     CommandID attachButtonCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int) PkgCmdIDList.cmdidAttachButton);
-                    OleMenuCommand attachButtonCommand = new OleMenuCommand(new EventHandler(OnAttachButtonClickCallback), attachButtonCommandID);
+                    OleMenuCommand attachButtonCommand = new OleMenuCommand(OnAttachButtonClickCallback, attachButtonCommandID);
                     attachButtonCommand.BeforeQueryStatus += BeforeQueryStatusAttach;
                     mcs.AddCommand(attachButtonCommand);
                 }
             }
 
-            var _debugger = GetService(typeof(SVsShellDebugger)) as IVsDebugger;
-            if (_debugger != null)
+            var debugger = GetService(typeof(SVsShellDebugger)) as IVsDebugger;
+            if (debugger != null)
             {
-                if (_debugger.AdviseDebugEventCallback(_controller) != VSConstants.S_OK) ;
+                if (debugger.AdviseDebugEventCallback(_controller) != VSConstants.S_OK) ;
             }
         }
 
@@ -124,8 +120,8 @@ namespace AttachToolbar
                 IntPtr outValue = eventArgs.OutValue;
                 if (outValue != IntPtr.Zero)
                 {
-                    Array enumValues = System.Enum.GetValues(typeof(AttachEngineType));
-                    string[] values = Array.ConvertAll<AttachEngineType, string>(enumValues as AttachEngineType[],
+                    Array enumValues = Enum.GetValues(typeof(AttachEngineType));
+                    string[] values = Array.ConvertAll(enumValues as AttachEngineType[],
                         (attachtype) => attachtype.GetEngineName());
 
                     Marshal.GetNativeVariantForObject(values, outValue);
@@ -154,7 +150,7 @@ namespace AttachToolbar
             {
                 try
                 {
-                    uiShell.SetMRUComboTextW(new Guid[] { GuidList.guidAttachToolbarCmdSet },
+                    uiShell.SetMRUComboTextW(new[] { GuidList.guidAttachToolbarCmdSet },
                         (int)PkgCmdIDList.cmdidAttachProgramsCombo, State.AttachProgramName, 0);
                 }
                 catch (Exception exc)
@@ -170,7 +166,7 @@ namespace AttachToolbar
             }
         }
 
-        private DTE2 _env = null;
+        private DTE2 _env;
         private AttachToolbarController _controller;
         private SettingsManager _settings;
     }
