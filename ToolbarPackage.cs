@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using EnvDTE80;
+﻿using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -13,6 +12,8 @@ namespace AttachToolbar
     [InstalledProductRegistration("#100", "#102", "1.1", IconResourceID = 400)]
 
     [ProvideMenuResource("Menus.ctmenu", 1)]
+    [ProvideOptionPage(typeof(OptionsPage), "Attach Toolbar", "General Settings", 
+        PkgCmdIDList.cmdidOptionsCategory, PkgCmdIDList.cmdidOptionsPage, true)]
 
     [ProvideAutoLoad(UIContextGuids.NoSolution)]
     [ProvideAutoLoad(UIContextGuids.SolutionExists)]

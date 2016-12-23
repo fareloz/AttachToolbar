@@ -85,6 +85,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EngineNameAttribute.cs" />
+    <Compile Include="OptionsGeneralWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OptionsPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ToolbarController.cs" />
     <Compile Include="EngineType.cs" />
     <Compile Include="Guids.cs" />
