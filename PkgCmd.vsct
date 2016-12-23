@@ -33,7 +33,7 @@
 
     <Combos>
 
-      <Combo guid="guidAttachToolbarCommandSet" id="cmdidProgramsCombo" priority="0x0010" type="MRUCombo" defaultWidth="130" idCommandList="cmdidProgramsComboGetList">
+      <Combo guid="guidAttachToolbarCommandSet" id="cmdidProgramsCombo" priority="0x0010" type="DropDownCombo" defaultWidth="130" idCommandList="cmdidProgramsComboGetList">
         <Parent guid="guidAttachToolbarCommandSet" id="ToolbarGroup"/>
         <CommandFlag>CommandWellOnly</CommandFlag>
         <Strings>

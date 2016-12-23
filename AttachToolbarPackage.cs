@@ -51,8 +51,12 @@ namespace AttachToolbar
             CommandID programsComboCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachProgramsCombo);
             OleMenuCommand programsComboCommand = new OleMenuCommand(OnProgramsComboItemSelection, programsComboCommandID);
             programsComboCommand.ParametersDescription = "$"; // accept any argument string
-            programsComboCommand.BeforeQueryStatus += BeforeQueryStatusPrograms;
+            //programsComboCommand.BeforeQueryStatus += BeforeQueryStatusPrograms;
             mcs.AddCommand(programsComboCommand);
+            // Event on combo list expanding
+            CommandID programsComboGetListCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachProgramsComboGetList);
+            MenuCommand programsComboGetListCommand = new OleMenuCommand(OnProgramsComboGetList, programsComboGetListCommandID);
+            mcs.AddCommand(programsComboGetListCommand);
 
             // Engine names ComboBox
             // Event on item selection
@@ -95,6 +99,21 @@ namespace AttachToolbar
             }
         }
 
+        private void OnProgramsComboGetList(object sender, EventArgs e)
+        {
+            OleMenuCmdEventArgs eventArgs = e as OleMenuCmdEventArgs;
+            if (eventArgs != null)
+            {
+                IntPtr outValue = eventArgs.OutValue;
+                if (outValue != IntPtr.Zero)
+                {
+                    string[] values = State.ProcessList.ToArray();
+                    Marshal.GetNativeVariantForObject(values, outValue);
+                }
+            }
+        }
+
+
         private void OnEnginesComboItemSelection(object sender, EventArgs e)
         {
             OleMenuCmdEventArgs eventArgs = e as OleMenuCmdEventArgs;
@@ -133,6 +152,7 @@ namespace AttachToolbar
             }
         }
 
+
         private void OnAttachButtonClickCallback(object sender, EventArgs e)
         {
             _controller.AttachTo(State.ProcessName, State.EngineType);
@@ -144,29 +164,6 @@ namespace AttachToolbar
             if(control != null)
             {
                 control.Enabled = !State.IsAttached;
-            }
-        }
-
-        private void BeforeQueryStatusPrograms(object sender, EventArgs e)
-        {
-            IVsUIShell uiShell = GetService(typeof(SVsUIShell)) as IVsUIShell;
-            if (uiShell != null)
-            {
-                try
-                {
-                    uiShell.SetMRUComboTextW(new[] { GuidList.guidAttachToolbarCmdSet },
-                        (int)PkgCmdIDList.cmdidAttachProgramsCombo, State.ProcessName, 0);
-                }
-                catch (Exception exc)
-                {
-                    MessageBox.Show(exc.ToString());
-                }
-            }
-            
-            OleMenuCommand control = sender as OleMenuCommand;
-            if(control != null)
-            {
-                control.BeforeQueryStatus -= BeforeQueryStatusPrograms;
             }
         }
 
