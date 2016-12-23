@@ -10,26 +10,29 @@ namespace AttachToolbar
     {
         public SettingsManager(Package settingProvider)
         {
-            ShellSettingsManager settingsManager = new ShellSettingsManager(settingProvider as IServiceProvider);
+            ShellSettingsManager settingsManager = new ShellSettingsManager(settingProvider);
             _settings = settingsManager.GetWritableSettingsStore(SettingsScope.UserSettings);
             LoadSettings();
         }
 
         public void LoadSettings()
         {
-            if (_settings.CollectionExists("AttachToolbar") == false)
+            try
+            {
+                string attachList = _settings.GetString("AttachToolbar", "ProcessList");
+                State.ProcessList = attachList.Split(';').ToList();
+
+                string lastProgram = _settings.GetString("AttachToolbar", "LastProcessName");
+                State.ProcessName = State.ProcessList.Contains(lastProgram) ?
+                    lastProgram : State.ProcessList.First();
+
+                State.EngineType = _settings.GetString("AttachToolbar", "LastEngineType").GetAttachType();
+            }
+            catch (Exception)
             {
                 CreateDefaultSettings();
+                State.Clear();
             }
-
-            string attachList = _settings.GetString("AttachToolbar", "ProcessList");
-            State.ProcessList = attachList.Split(';').ToList();
-
-            string lastProgram = _settings.GetString("AttachToolbar", "LastProcessName");
-            State.ProcessName = State.ProcessList.Contains(lastProgram) ? 
-                lastProgram : State.ProcessList.First();
-
-            State.EngineType = _settings.GetString("AttachToolbar", "LastEngineType").GetAttachType();
         }
 
         public void SaveSettings()
@@ -41,6 +44,7 @@ namespace AttachToolbar
 
         private void CreateDefaultSettings()
         {
+            _settings.DeleteCollection("AttachToolbar");
             _settings.CreateCollection("AttachToolbar");
             _settings.SetString("AttachToolbar", "ProcessList", "");
             _settings.SetString("AttachToolbar", "LastProcessName", "");
