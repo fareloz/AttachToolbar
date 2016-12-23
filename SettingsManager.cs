@@ -22,11 +22,8 @@ namespace AttachToolbar
                 string attachList = _settings.GetString("AttachToolbar", "ProcessList");
                 State.ProcessList = attachList.Split(';').ToList();
 
-                string lastProgram = _settings.GetString("AttachToolbar", "LastProcessName");
-                State.ProcessName = State.ProcessList.Contains(lastProgram) ?
-                    lastProgram : State.ProcessList.First();
-
-                State.EngineType = _settings.GetString("AttachToolbar", "LastEngineType").GetAttachType();
+                State.ProcessIndex = _settings.GetInt32("AttachToolbar", "ProcessIndex");
+                State.EngineType = _settings.GetString("AttachToolbar", "EngineType").GetAttachType();
             }
             catch (Exception)
             {
@@ -38,8 +35,8 @@ namespace AttachToolbar
         public void SaveSettings()
         {
             _settings.SetString("AttachToolbar", "ProcessList", string.Join(";", State.ProcessList));
-            _settings.SetString("AttachToolbar", "LastProcessName", State.ProcessName);
-            _settings.SetString("AttachToolbar", "LastEngineType", State.EngineType.GetEngineName());
+            _settings.SetInt32("AttachToolbar", "ProcessIndex", State.ProcessIndex);
+            _settings.SetString("AttachToolbar", "EngineType", State.EngineType.GetEngineName());
         }
 
         private void CreateDefaultSettings()
@@ -47,8 +44,8 @@ namespace AttachToolbar
             _settings.DeleteCollection("AttachToolbar");
             _settings.CreateCollection("AttachToolbar");
             _settings.SetString("AttachToolbar", "ProcessList", "");
-            _settings.SetString("AttachToolbar", "LastProcessName", "");
-            _settings.SetString("AttachToolbar", "LastEngineType", EngineType.Native.GetEngineName());
+            _settings.SetInt32("AttachToolbar", "ProcessIndex", -1);
+            _settings.SetString("AttachToolbar", "EngineType", EngineType.Native.GetEngineName());
         }
 
         private readonly WritableSettingsStore _settings;
