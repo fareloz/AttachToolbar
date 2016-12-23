@@ -44,7 +44,7 @@ namespace AttachToolbar
             _settings.CreateCollection("AttachToolbar");
             _settings.SetString("AttachToolbar", "ProcessList", "");
             _settings.SetString("AttachToolbar", "LastProcessName", "");
-            _settings.SetString("AttachToolbar", "LastEngineType", AttachEngineType.Native.GetEngineName());
+            _settings.SetString("AttachToolbar", "LastEngineType", EngineType.Native.GetEngineName());
         }
 
         private readonly WritableSettingsStore _settings;

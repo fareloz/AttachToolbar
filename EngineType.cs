@@ -3,36 +3,36 @@ using System.Reflection;
 
 namespace AttachToolbar
 {
-    public enum AttachEngineType
+    public enum EngineType
     {
-        [AttachEngineName("Native")]
+        [EngineName("Native")]
         Native = 1,
 
-        [AttachEngineName("Managed")]
+        [EngineName("Managed")]
         Managed = 2,
 
-        [AttachEngineName("Managed/Native")]
+        [EngineName("Managed/Native")]
         Both = 3
     }
 
     public static class AttachEngineTypeConverter
     {
-        public static string GetEngineName(this AttachEngineType type)
+        public static string GetEngineName(this EngineType type)
         {
             Type atTypeDesc = type.GetType();
             MemberInfo[] info = atTypeDesc.GetMember(type.ToString());
-            AttachEngineNameAttribute engineNameAttr = Attribute.GetCustomAttribute(info[0], typeof(AttachEngineNameAttribute))
-                as AttachEngineNameAttribute;
+            EngineNameAttribute engineNameAttr = Attribute.GetCustomAttribute(info[0], typeof(EngineNameAttribute))
+                as EngineNameAttribute;
             if (engineNameAttr == null)
                 throw new ArgumentException();
 
             return engineNameAttr.EngineName;
         }
 
-        public static AttachEngineType GetAttachType(this string engineName)
+        public static EngineType GetAttachType(this string engineName)
         {
-            Array enumValues = Enum.GetValues(typeof(AttachEngineType));
-            foreach (AttachEngineType type in enumValues)
+            Array enumValues = Enum.GetValues(typeof(EngineType));
+            foreach (EngineType type in enumValues)
             {
                 if (type.GetEngineName() == engineName)
                 {
@@ -40,7 +40,7 @@ namespace AttachToolbar
                 }
             }
 
-            return AttachEngineType.Native;
+            return EngineType.Native;
         }
     }
 }

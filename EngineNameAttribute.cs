@@ -3,9 +3,9 @@
 namespace AttachToolbar
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
-    public class AttachEngineNameAttribute : Attribute
+    public class EngineNameAttribute : Attribute
     {
-        public AttachEngineNameAttribute(string name)
+        public EngineNameAttribute(string name)
         {
             EngineName = name;
         }

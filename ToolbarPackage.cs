@@ -18,7 +18,7 @@ namespace AttachToolbar
     [ProvideAutoLoad(UIContextGuids.SolutionExists)]
 
     [Guid(GuidList.guidAttachToolbarPkgString)]
-    public sealed class AttachToolbarPackage : Package
+    public sealed class ToolbarPackage : Package
     {
         protected override void Initialize()
         {
@@ -40,7 +40,7 @@ namespace AttachToolbar
 
         private void InitializeControls()
         {
-            _controller = new AttachToolbarController(_env);
+            _controller = new ToolbarController(_env);
 
             OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (mcs == null)
@@ -143,8 +143,8 @@ namespace AttachToolbar
                 IntPtr outValue = eventArgs.OutValue;
                 if (outValue != IntPtr.Zero)
                 {
-                    Array enumValues = Enum.GetValues(typeof(AttachEngineType));
-                    string[] values = Array.ConvertAll(enumValues as AttachEngineType[],
+                    Array enumValues = Enum.GetValues(typeof(EngineType));
+                    string[] values = Array.ConvertAll(enumValues as EngineType[],
                         (attachtype) => attachtype.GetEngineName());
 
                     Marshal.GetNativeVariantForObject(values, outValue);
@@ -168,7 +168,7 @@ namespace AttachToolbar
         }
 
         private DTE2 _env;
-        private AttachToolbarController _controller;
+        private ToolbarController _controller;
         private SettingsManager _settings;
     }
 }

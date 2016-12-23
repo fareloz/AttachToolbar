@@ -7,15 +7,15 @@ using Microsoft.VisualStudio.Debugger.Interop;
 
 namespace AttachToolbar
 {
-    public class AttachToolbarController : IDebugEventCallback2
+    public class ToolbarController : IDebugEventCallback2
     {
-        public AttachToolbarController(DTE2 dte)
+        public ToolbarController(DTE2 dte)
         {
             _env = dte;
             _dbg = _env.Debugger as Debugger2;
         }
 
-        public void AttachTo(string processName, AttachEngineType attachEngineType) 
+        public void AttachTo(string processName, EngineType attachEngineType) 
         {
             bool found = false;
             if (State.IsAttached) {

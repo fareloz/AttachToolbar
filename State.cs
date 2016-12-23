@@ -6,7 +6,7 @@ namespace AttachToolbar
     {
         public static string ProcessName = "";
         public static List<string> ProcessList = new List<string>();
-        public static AttachEngineType EngineType = AttachEngineType.Native;
+        public static EngineType EngineType = EngineType.Native;
         public static bool IsAttached = false;
     }
 }
