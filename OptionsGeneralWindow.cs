@@ -158,12 +158,11 @@ namespace AttachToolbar
         private TextBox textboxProcessName;
 
         private ListView listviewProcessList;
-        public ColumnHeader columnProcessName;
+        private ColumnHeader columnProcessName;
 
         private Label labelProcessName;
         private Button buttonRemove;
         private Button buttonClear;
 
-        private readonly OptionsPage _page;
     }
 }

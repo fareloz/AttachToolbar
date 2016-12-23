@@ -11,10 +11,30 @@ namespace AttachToolbar
         {
             get
             {
-                OptionsGeneralWindow page = new OptionsGeneralWindow();
-                page.Initialize();
-                return page;
+                if(_generalPage == null)
+                {
+                    _generalPage = new OptionsGeneralWindow();
+                    _generalPage.Initialize();
+                }
+                
+                return _generalPage;
             }
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (_generalPage != null)
+                {
+                    _generalPage.Dispose();
+                    _generalPage = null;
+                    State.Settings.SaveSettings();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
+        private OptionsGeneralWindow _generalPage;
     }
 }
