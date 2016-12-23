@@ -7,12 +7,11 @@ namespace AttachToolbar
     [Guid(GuidList.guidAttachToolbarOptionPage)]
     public class OptionsPage : DialogPage
     {
-
         protected override IWin32Window Window
         {
             get
             {
-                OptionsGeneralWindow page = new OptionsGeneralWindow(this);
+                OptionsGeneralWindow page = new OptionsGeneralWindow();
                 page.Initialize();
                 return page;
             }
