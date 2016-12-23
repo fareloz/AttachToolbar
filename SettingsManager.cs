@@ -19,8 +19,9 @@ namespace AttachToolbar
         {
             try
             {
-                string attachList = _settings.GetString("AttachToolbar", "ProcessList");
-                State.ProcessList = attachList.Split(';').ToList();
+                string processList = _settings.GetString("AttachToolbar", "ProcessList");
+                if(processList != string.Empty)
+                    State.ProcessList = processList.Split(';').ToList();
 
                 State.ProcessIndex = _settings.GetInt32("AttachToolbar", "ProcessIndex");
                 State.EngineType = _settings.GetString("AttachToolbar", "EngineType").GetAttachType();
