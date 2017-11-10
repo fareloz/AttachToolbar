@@ -30,13 +30,6 @@ namespace AttachToolbar
 
             State.Settings = new SettingsManager(this);
             InitializeControls();
-
-            var debugger = GetService(typeof(SVsShellDebugger)) as IVsDebugger;
-            if (debugger == null)
-                throw new Exception("Failed to get debugger service.");
-
-            if (debugger.AdviseDebugEventCallback(_controller) != VSConstants.S_OK)
-                throw new Exception("Failed to set debugger event callback.");
         }
 
         private void InitializeControls()
@@ -73,7 +66,6 @@ namespace AttachToolbar
             // Attach button
             CommandID attachButtonCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachButton);
             OleMenuCommand attachButtonCommand = new OleMenuCommand(OnAttachButtonClickCallback, attachButtonCommandID);
-            attachButtonCommand.BeforeQueryStatus += BeforeQueryStatusAttach;
             mcs.AddCommand(attachButtonCommand);
         }
 
@@ -157,15 +149,6 @@ namespace AttachToolbar
         private void OnAttachButtonClickCallback(object sender, EventArgs e)
         {
             _controller.AttachTo(State.ProcessName, State.EngineType);
-        }
-
-        private void BeforeQueryStatusAttach(object sender, EventArgs e)
-        { 
-            OleMenuCommand control = sender as OleMenuCommand;
-            if(control != null)
-            {
-                control.Enabled = !State.IsAttached;
-            }
         }
 
         private DTE2 _env;

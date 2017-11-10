@@ -8,7 +8,6 @@ namespace AttachToolbar
         {
             ProcessList.Clear();
             EngineType = EngineType.Native;
-            IsAttached = false;
             ProcessIndex = -1;
         }
         public static string ProcessName
@@ -31,7 +30,6 @@ namespace AttachToolbar
         public static int ProcessIndex = -1;
         public static List<string> ProcessList = new List<string>();
         public static EngineType EngineType = EngineType.Native;
-        public static bool IsAttached = false;
         public static SettingsManager Settings;
     }
 }

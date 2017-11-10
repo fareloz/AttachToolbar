@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Debugger.Interop;
 
 namespace AttachToolbar
 {
-    public class ToolbarController : IDebugEventCallback2
+    public class ToolbarController
     {
         public ToolbarController(DTE2 dte)
         {
@@ -21,11 +21,6 @@ namespace AttachToolbar
                 return;
 
             bool found = false;
-            if (State.IsAttached) {
-                _dbg.DetachAll();
-                State.IsAttached = false;
-            }
-
             foreach (Process2 process in _dbg.LocalProcesses)
             {
                 string fileName = Path.GetFileName(process.Name);
@@ -45,7 +40,6 @@ namespace AttachToolbar
                 }
             }
 
-            State.IsAttached = found;
             if (!found)
             {
                 MessageBox.Show(
@@ -54,28 +48,6 @@ namespace AttachToolbar
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
-        }
-
-        public int Event(IDebugEngine2 engine, IDebugProcess2 process, IDebugProgram2 program,
-            IDebugThread2 thread, IDebugEvent2 debugEvent, ref Guid riidEvent, uint attributes)
-        {
-            // Ignore a few events right away.
-            if (debugEvent is IDebugModuleLoadEvent2 ||
-                debugEvent is IDebugThreadCreateEvent2 ||
-                debugEvent is IDebugThreadDestroyEvent2)
-                return VSConstants.S_OK;
-
-            if (process == null)
-                return VSConstants.S_OK;
-
-            if (debugEvent is IDebugProcessCreateEvent2) {
-                State.IsAttached = true;
-            }
-            else if (debugEvent is IDebugProcessDestroyEvent2) {
-                State.IsAttached = false;
-            }
-
-            return VSConstants.S_OK;
         }
 
         private readonly DTE2 _env;
