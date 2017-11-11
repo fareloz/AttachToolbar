@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using EnvDTE80;
@@ -10,17 +11,23 @@ namespace AttachToolbar
 {
     public class ToolbarController
     {
+        public enum AttachType
+        {
+            First,
+            ToAll
+        }
+
         public ToolbarController(DTE2 dte)
         {
             _env = dte;
             _dbg = _env.Debugger as Debugger2;
 
             IVsOutputWindow outWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
-            Guid generalPaneGuid = VSConstants.GUID_OutWindowGeneralPane;
+            Guid generalPaneGuid = VSConstants.GUID_OutWindowDebugPane;
             outWindow.GetPane(ref generalPaneGuid, out _debugOutputWindow);
         }
 
-        public void Attach(string processName, EngineType attachEngineType) 
+        public void Attach(string processName, EngineType attachEngineType, AttachType attachType) 
         {
             if(processName == String.Empty)
                 return;
@@ -40,21 +47,24 @@ namespace AttachToolbar
                 {
                     process.Attach2(engines);
                     found = true;
-                    break;
+
+                    _debugOutputWindow?.OutputString($"Attach Toolbar: Attached to {processName}[{process.ProcessID}].");
+                    _debugOutputWindow.Activate();
+                    if (attachType == AttachType.First)
+                        break;
                 }
                 catch
                 {
-                    _debugOutputWindow.OutputString($"Failed to attach to {processName}[{process.ProcessID}].");
+                    _debugOutputWindow?.OutputString($"Attach Toolbar: Failed to attach to {processName}[{process.ProcessID}].");
                 }
             }
 
             if (!found)
             {
-                MessageBox.Show(
-                    $"No process with name {processName} found.",
-                    "Attach Toolbar", 
+                MessageBox.Show( $"No processes with name {processName} are found.",
+                    "Attach Toolbar",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                    MessageBoxIcon.Error );
             }
         }
 

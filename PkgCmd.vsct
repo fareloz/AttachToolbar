@@ -61,10 +61,10 @@
 
             <Button guid="guidAttachToolbarCommandSet" id="cmdidAttachButton" priority="0x0010" type="Button">
                 <Parent guid="guidAttachToolbarCommandSet" id="MenuGroup" />
-                <Icon guid="guidImages" id="bmpPicAttach" />
+                <Icon guid="guidAttachImage" id="bmpPicAttach" />
                 <Strings>
                     <ButtonText>Attach to program</ButtonText>
-                    <ToolTipText>Attach to selected program with selected engine</ToolTipText>
+                    <ToolTipText>Attach to first process with selected name and engine</ToolTipText>
                     <CanonicalName>AttachToolbar_AttachButton</CanonicalName>
                     <CommandName>AttachToolbar_AttachButton</CommandName>
                 </Strings>
@@ -72,19 +72,41 @@
 
             <Button guid="guidAttachToolbarCommandSet" id="cmdidAttachButton" priority="0x0010" type="Button">
                 <Parent guid="guidAttachToolbarCommandSet" id="ToolbarGroup" />
-                <Icon guid="guidImages" id="bmpPicAttach" />
+                <Icon guid="guidAttachImage" id="bmpPicAttach" />
                 <Strings>
                     <ButtonText>Attach to program</ButtonText>
-                    <ToolTipText>Attach to selected program with selected engine</ToolTipText>
+                    <ToolTipText>Attach to first process with selected name and engine</ToolTipText>
                     <CanonicalName>AttachToolbar_AttachButton</CanonicalName>
                     <CommandName>AttachToolbar_AttachButton</CommandName>
                 </Strings>
             </Button>
 
+            <Button guid="guidAttachToolbarCommandSet" id="cmdidAttachToAllButton" priority="0x0011" type="Button">
+                <Parent guid="guidAttachToolbarCommandSet" id="MenuGroup" />
+                <Icon guid="guidAttachToAllImage" id="bmpPicAttachToAll" />
+                <Strings>
+                    <ButtonText>Attach to program</ButtonText>
+                    <ToolTipText>Attach to all processes with selected name and engine</ToolTipText>
+                    <CanonicalName>AttachToolbar_AttachToAllButton</CanonicalName>
+                    <CommandName>AttachToolbar_AttachToAllButton</CommandName>
+                </Strings>
+            </Button>
+
+            <Button guid="guidAttachToolbarCommandSet" id="cmdidAttachToAllButton" priority="0x0011" type="Button">
+                <Parent guid="guidAttachToolbarCommandSet" id="ToolbarGroup" />
+                <Icon guid="guidAttachToAllImage" id="bmpPicAttachToAll" />
+                <Strings>
+                    <ButtonText>Attach to program</ButtonText>
+                    <ToolTipText>Attach to all processes with selected name and engine</ToolTipText>
+                    <CanonicalName>AttachToolbar_AttachToAllButton</CanonicalName>
+                    <CommandName>AttachToolbar_AttachToAllButton</CommandName>
+                </Strings>
+            </Button>
         </Buttons>
 
         <Bitmaps>
-            <Bitmap guid="guidImages" href="Resources\Images.ico" usedList="bmpPicAttach" />
+            <Bitmap guid="guidAttachImage" href="Resources\AttachButton.ico" usedList="bmpPicAttach" />
+            <Bitmap guid="guidAttachToAllImage" href="Resources\AttachToAllButton.ico" usedList="bmpPicAttachToAll" />
         </Bitmaps>
 
     </Commands>
@@ -117,11 +139,15 @@
             <IDSymbol name="cmdidEnginesComboGetList" value="0x106" />
 
             <IDSymbol name="cmdidAttachButton" value="0x107" />
+            <IDSymbol name="cmdidAttachToAllButton" value="0x108" />
 
         </GuidSymbol>
 
-        <GuidSymbol name="guidImages" value="{25AA8474-5DBB-410A-A9D6-FC7763EB5B9C}" >
+        <GuidSymbol name="guidAttachImage" value="{25AA8474-5DBB-410A-A9D6-FC7763EB5B9C}" >
             <IDSymbol name="bmpPicAttach" value="1" />
+        </GuidSymbol>
+        <GuidSymbol name="guidAttachToAllImage" value="{9167B7B8-10A0-4BBD-A010-815E92726AA9}" >
+            <IDSymbol name="bmpPicAttachToAll" value="1" />
         </GuidSymbol>
 
     </Symbols>

@@ -67,6 +67,10 @@ namespace AttachToolbar
             CommandID attachButtonCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachButton);
             OleMenuCommand attachButtonCommand = new OleMenuCommand(OnAttachButtonClickCallback, attachButtonCommandID);
             mcs.AddCommand(attachButtonCommand);
+            // Attach to all button
+            CommandID attachToAllButtonCommandID = new CommandID(GuidList.guidAttachToolbarCmdSet, (int)PkgCmdIDList.cmdidAttachToAllButton);
+            OleMenuCommand attachToAllButtonCommand = new OleMenuCommand(OnAttachToAllButtonClickCallback, attachToAllButtonCommandID);
+            mcs.AddCommand(attachToAllButtonCommand);
         }
 
         private void OnProgramsComboItemSelection(object sender, EventArgs e)
@@ -145,10 +149,14 @@ namespace AttachToolbar
             }
         }
 
-
         private void OnAttachButtonClickCallback(object sender, EventArgs e)
         {
-            _controller.Attach(State.ProcessName, State.EngineType);
+            _controller.Attach(State.ProcessName, State.EngineType, ToolbarController.AttachType.First);
+        }
+
+        private void OnAttachToAllButtonClickCallback(object sender, EventArgs e)
+        {
+            _controller.Attach(State.ProcessName, State.EngineType, ToolbarController.AttachType.ToAll);
         }
 
         private DTE2 _env;
