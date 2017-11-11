@@ -148,7 +148,7 @@ namespace AttachToolbar
 
         private void OnAttachButtonClickCallback(object sender, EventArgs e)
         {
-            _controller.AttachTo(State.ProcessName, State.EngineType);
+            _controller.Attach(State.ProcessName, State.EngineType);
         }
 
         private DTE2 _env;

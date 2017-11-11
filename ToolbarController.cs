@@ -3,7 +3,8 @@ using System.IO;
 using System.Windows.Forms;
 using EnvDTE80;
 using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Debugger.Interop;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace AttachToolbar
 {
@@ -13,9 +14,13 @@ namespace AttachToolbar
         {
             _env = dte;
             _dbg = _env.Debugger as Debugger2;
+
+            IVsOutputWindow outWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
+            Guid generalPaneGuid = VSConstants.GUID_OutWindowGeneralPane;
+            outWindow.GetPane(ref generalPaneGuid, out _debugOutputWindow);
         }
 
-        public void AttachTo(string processName, EngineType attachEngineType) 
+        public void Attach(string processName, EngineType attachEngineType) 
         {
             if(processName == String.Empty)
                 return;
@@ -26,24 +31,26 @@ namespace AttachToolbar
                 string fileName = Path.GetFileName(process.Name);
                 if (fileName != null && fileName.Equals(processName, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    found = true;
                     Transport transport = _dbg.Transports.Item("default");
                     Engine[] engines = { transport.Engines.Item(attachEngineType.GetEngineName()) };
                     
-                    try {
+                    try
+                    {
                         process.Attach2(engines);
+                        found = true;
+                        break;
                     }
-                    catch {
-                        found = false;
+                    catch
+                    {
+                        _debugOutputWindow.OutputString($"Failed to attach to {processName}[{process.ProcessID}].");
                     }
-                    break;
                 }
             }
 
             if (!found)
             {
                 MessageBox.Show(
-                    $"Failed to attach to {processName}.",
+                    $"No process with name {processName} found.",
                     "Attach Toolbar", 
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -52,5 +59,6 @@ namespace AttachToolbar
 
         private readonly DTE2 _env;
         private readonly Debugger2 _dbg;
+        private readonly IVsOutputWindowPane _debugOutputWindow;
     }
 }
