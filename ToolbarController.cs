@@ -21,10 +21,6 @@ namespace AttachToolbar
         {
             _env = dte;
             _dbg = _env.Debugger as Debugger2;
-
-            IVsOutputWindow outWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
-            Guid generalPaneGuid = VSConstants.GUID_OutWindowDebugPane;
-            outWindow.GetPane(ref generalPaneGuid, out _debugOutputWindow);
         }
 
         public void Attach(string processName, EngineType attachEngineType, AttachType attachType) 
@@ -35,6 +31,7 @@ namespace AttachToolbar
             bool found = false;
             Transport transport = _dbg.Transports.Item("default");
             Engine[] engines = { transport.Engines.Item(attachEngineType.GetEngineName()) };
+            var outputWindow = GetOutputWindow();
 
             foreach (Process2 process in _dbg.LocalProcesses)
             {
@@ -48,14 +45,13 @@ namespace AttachToolbar
                     process.Attach2(engines);
                     found = true;
 
-                    _debugOutputWindow?.OutputString($"Attach Toolbar: Attached to {processName}[{process.ProcessID}].");
-                    _debugOutputWindow.Activate();
+                    outputWindow?.OutputString($"Attach Toolbar: Attached to {processName}[{process.ProcessID}].{Environment.NewLine}");
                     if (attachType == AttachType.First)
                         break;
                 }
                 catch
                 {
-                    _debugOutputWindow?.OutputString($"Attach Toolbar: Failed to attach to {processName}[{process.ProcessID}].");
+                    outputWindow?.OutputString($"Attach Toolbar: Failed to attach to {processName}[{process.ProcessID}].{Environment.NewLine}");
                 }
             }
 
@@ -68,8 +64,16 @@ namespace AttachToolbar
             }
         }
 
+        private IVsOutputWindowPane GetOutputWindow()
+        {
+            IVsOutputWindow outWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
+            IVsOutputWindowPane debugOutputWindow;
+            Guid generalPaneGuid = VSConstants.GUID_OutWindowDebugPane;
+            outWindow.GetPane(ref generalPaneGuid, out debugOutputWindow);
+            return debugOutputWindow;
+        }
+
         private readonly DTE2 _env;
         private readonly Debugger2 _dbg;
-        private readonly IVsOutputWindowPane _debugOutputWindow;
     }
 }
