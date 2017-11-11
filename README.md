@@ -3,17 +3,29 @@ Visual studio extension. Provide custom toolbar to easy attach debugger to most 
 
 ## Overview
 
-Attach Manager provide fast way to attach debugger to most frequent targets. This extension represents a custom toolbar, where a debugee can be selected from predefned list:
+Attach Toolbar provide fast way to attach debugger to most frequent targets. This extension represents a custom toolbar, where a debugee can be selected from predefned list:
 
-![Screenshot](http://i1.visualstudiogallery.msdn.s-msft.com/c4c35d6b-c5bb-4159-889d-cff4a748b83a/image/file/140871/1/2.png)
+![Screenshot](https://fareloz.gallerycdn.vsassets.io/extensions/fareloz/attachtoolbar/2.2/1510410307285/140871/1/2.png)
 
 You can define the list of process to attach to on the settings page:
 
-![Screenshot](https://i1.visualstudiogallery.msdn.s-msft.com/c4c35d6b-c5bb-4159-889d-cff4a748b83a/image/file/239797/1/2016-12-24_10-56-51.png)
+![Screenshot](https://fareloz.gallerycdn.vsassets.io/extensions/fareloz/attachtoolbar/2.2/1510410307285/239797/1/2016-12-24_10-56-51.png)
 
-Attach Manager has ability to use different engine types:
+Attach Toolbar has ability to use different engine types:
 
-![Screenshot](http://i1.visualstudiogallery.msdn.s-msft.com/c4c35d6b-c5bb-4159-889d-cff4a748b83a/image/file/140872/1/2.png)
+![Screenshot](https://fareloz.gallerycdn.vsassets.io/extensions/fareloz/attachtoolbar/2.2/1510410307285/140872/1/2.png)
+
+"Attach to all" button allows you to attach to all the processes with selected name at once:
+
+![Screenshot](https://fareloz.gallerycdn.vsassets.io/extensions/fareloz/attachtoolbar/2.2/1510410307285/286944/1/Snipaste_2017-11-11_16-22-21.png)
+
+## In version 2.2
+
+- Attach to all button added
+
+## In version 2.1
+
+- Attach to several targets
 
 ## In version 2.0
 
@@ -28,4 +40,4 @@ Attach Manager has ability to use different engine types:
 
 ## Additional information
 
-[Extension Gallery link](https://visualstudiogallery.msdn.microsoft.com/c4c35d6b-c5bb-4159-889d-cff4a748b83a)
+[Extension Gallery link](https://marketplace.visualstudio.com/items?itemName=fareloz.AttachToolbar)
