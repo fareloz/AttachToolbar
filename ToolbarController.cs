@@ -26,24 +26,25 @@ namespace AttachToolbar
                 return;
 
             bool found = false;
+            Transport transport = _dbg.Transports.Item("default");
+            Engine[] engines = { transport.Engines.Item(attachEngineType.GetEngineName()) };
+
             foreach (Process2 process in _dbg.LocalProcesses)
             {
                 string fileName = Path.GetFileName(process.Name);
-                if (fileName != null && fileName.Equals(processName, StringComparison.InvariantCultureIgnoreCase))
+                bool? validProcess = fileName?.Equals(processName, StringComparison.InvariantCultureIgnoreCase);
+                if (validProcess == null || validProcess == false)
+                    continue;
+
+                try
                 {
-                    Transport transport = _dbg.Transports.Item("default");
-                    Engine[] engines = { transport.Engines.Item(attachEngineType.GetEngineName()) };
-                    
-                    try
-                    {
-                        process.Attach2(engines);
-                        found = true;
-                        break;
-                    }
-                    catch
-                    {
-                        _debugOutputWindow.OutputString($"Failed to attach to {processName}[{process.ProcessID}].");
-                    }
+                    process.Attach2(engines);
+                    found = true;
+                    break;
+                }
+                catch
+                {
+                    _debugOutputWindow.OutputString($"Failed to attach to {processName}[{process.ProcessID}].");
                 }
             }
 
