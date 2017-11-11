@@ -63,7 +63,7 @@
                 <Parent guid="guidAttachToolbarCommandSet" id="MenuGroup" />
                 <Icon guid="guidAttachImage" id="bmpPicAttach" />
                 <Strings>
-                    <ButtonText>Attach to program</ButtonText>
+                    <ButtonText>Attach to process</ButtonText>
                     <ToolTipText>Attach to first process with selected name and engine</ToolTipText>
                     <CanonicalName>AttachToolbar_AttachButton</CanonicalName>
                     <CommandName>AttachToolbar_AttachButton</CommandName>
@@ -74,7 +74,7 @@
                 <Parent guid="guidAttachToolbarCommandSet" id="ToolbarGroup" />
                 <Icon guid="guidAttachImage" id="bmpPicAttach" />
                 <Strings>
-                    <ButtonText>Attach to program</ButtonText>
+                    <ButtonText>Attach to process</ButtonText>
                     <ToolTipText>Attach to first process with selected name and engine</ToolTipText>
                     <CanonicalName>AttachToolbar_AttachButton</CanonicalName>
                     <CommandName>AttachToolbar_AttachButton</CommandName>
@@ -85,7 +85,7 @@
                 <Parent guid="guidAttachToolbarCommandSet" id="MenuGroup" />
                 <Icon guid="guidAttachToAllImage" id="bmpPicAttachToAll" />
                 <Strings>
-                    <ButtonText>Attach to program</ButtonText>
+                    <ButtonText>Attach to all</ButtonText>
                     <ToolTipText>Attach to all processes with selected name and engine</ToolTipText>
                     <CanonicalName>AttachToolbar_AttachToAllButton</CanonicalName>
                     <CommandName>AttachToolbar_AttachToAllButton</CommandName>
@@ -96,7 +96,7 @@
                 <Parent guid="guidAttachToolbarCommandSet" id="ToolbarGroup" />
                 <Icon guid="guidAttachToAllImage" id="bmpPicAttachToAll" />
                 <Strings>
-                    <ButtonText>Attach to program</ButtonText>
+                    <ButtonText>Attach to all</ButtonText>
                     <ToolTipText>Attach to all processes with selected name and engine</ToolTipText>
                     <CanonicalName>AttachToolbar_AttachToAllButton</CanonicalName>
                     <CommandName>AttachToolbar_AttachToAllButton</CommandName>
