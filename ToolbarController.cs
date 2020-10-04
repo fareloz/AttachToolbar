@@ -25,7 +25,7 @@ namespace AttachToolbar
 
         public void Attach(string processName, EngineType attachEngineType, AttachType attachType) 
         {
-            if(processName == String.Empty)
+            if(string.IsNullOrEmpty(processName))
                 return;
 
             bool found = false;

@@ -20,7 +20,7 @@ namespace AttachToolbar
             try
             {
                 string processList = _settings.GetString("AttachToolbar", "ProcessList");
-                if(processList != string.Empty)
+                if(!string.IsNullOrEmpty(processList))
                     State.ProcessList = processList.Split(';').ToList();
 
                 State.ProcessIndex = _settings.GetInt32("AttachToolbar", "ProcessIndex");

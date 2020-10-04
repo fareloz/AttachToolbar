@@ -110,7 +110,7 @@ namespace AttachToolbar
         private void buttonAdd_Click(object sender, System.EventArgs e)
         {
             string processName = textboxProcessName.Text;
-            if(processName == string.Empty)
+            if(string.IsNullOrEmpty(processName))
                 return;
 
             textboxProcessName.Clear();
