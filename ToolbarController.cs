@@ -64,7 +64,7 @@ namespace AttachToolbar
             }
         }
 
-        private IVsOutputWindowPane GetOutputWindow()
+        private static IVsOutputWindowPane GetOutputWindow()
         {
             IVsOutputWindow outWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
             IVsOutputWindowPane debugOutputWindow;
