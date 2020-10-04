@@ -17,9 +17,6 @@ namespace AttachToolbar
     [ProvideOptionPage(typeof(OptionsPage), "Attach Toolbar", "General Settings", 
         PkgCmdIDList.cmdidOptionsCategory, PkgCmdIDList.cmdidOptionsPage, true)]
 
-    [ProvideAutoLoad(UIContextGuids.NoSolution)]
-    [ProvideAutoLoad(UIContextGuids.SolutionExists)]
-
     [Guid(GuidList.guidAttachToolbarPkgString)]
     public sealed class ToolbarPackage : Package
     {
