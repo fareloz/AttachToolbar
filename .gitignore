@@ -3,3 +3,4 @@ obj/
 .vs/
 Key.snk
 *.user
+packages
