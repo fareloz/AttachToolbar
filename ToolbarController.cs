@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using EnvDTE80;
 using Microsoft.VisualStudio;
@@ -49,7 +50,7 @@ namespace AttachToolbar
                     if (attachType == AttachType.First)
                         break;
                 }
-                catch
+                catch (COMException)
                 {
                     outputWindow?.OutputString($"Attach Toolbar: Failed to attach to {processName}[{process.ProcessID}].{Environment.NewLine}");
                 }

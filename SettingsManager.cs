@@ -26,7 +26,7 @@ namespace AttachToolbar
                 State.ProcessIndex = _settings.GetInt32("AttachToolbar", "ProcessIndex");
                 State.EngineType = _settings.GetString("AttachToolbar", "EngineType").GetAttachType();
             }
-            catch (Exception)
+            catch (ArgumentException)
             {
                 CreateDefaultSettings();
                 State.Clear();
