@@ -3,7 +3,10 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.ComponentModel.Design;
+using System.Resources;
 using System.Runtime.InteropServices;
+
+[assembly: NeutralResourcesLanguage("en")]
 
 namespace AttachToolbar
 {
