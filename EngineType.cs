@@ -24,7 +24,7 @@ namespace AttachToolbar
             EngineNameAttribute engineNameAttr = Attribute.GetCustomAttribute(info[0], typeof(EngineNameAttribute))
                 as EngineNameAttribute;
             if (engineNameAttr == null)
-                throw new ArgumentException();
+                throw new NullReferenceException("Cannot get engine name");
 
             return engineNameAttr.EngineName;
         }
