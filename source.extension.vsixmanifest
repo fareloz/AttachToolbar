@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="661F9F7D-C7D8-400B-AF70-BA4B1FFA3B8F" Version="2.2.1" Language="en-US" Publisher="fareloz" />
+        <Identity Id="661F9F7D-C7D8-400B-AF70-BA4B1FFA3B8F" Version="2.2.2" Language="en-US" Publisher="fareloz" />
         <DisplayName>Attach Toolbar</DisplayName>
         <Description xml:space="preserve">Attach Toolbar extension provide easy way to attach to any application using toolbar controls</Description>
         <MoreInfo>https://github.com/fareloz/AttachToolbar</MoreInfo>
