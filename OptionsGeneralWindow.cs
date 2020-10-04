@@ -1,4 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using System.Globalization;
+using System.Reflection;
+using System.Resources;
+using System.Windows.Forms;
 
 namespace AttachToolbar
 {
@@ -13,6 +16,8 @@ namespace AttachToolbar
 
         private void InitializeComponent()
         {
+            ResourceManager rm = new ResourceManager("AttachToolbar.Resources", Assembly.GetExecutingAssembly());
+
             this.buttonAdd = new System.Windows.Forms.Button();
             this.textboxProcessName = new System.Windows.Forms.TextBox();
             this.listviewProcessList = new System.Windows.Forms.ListView();
@@ -29,7 +34,7 @@ namespace AttachToolbar
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(108, 31);
             this.buttonAdd.TabIndex = 1;
-            this.buttonAdd.Text = "Add";
+            this.buttonAdd.Text = rm.GetString("ButtonAddText", CultureInfo.InvariantCulture);
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
@@ -58,7 +63,7 @@ namespace AttachToolbar
             // 
             // columnProcessName
             // 
-            this.columnProcessName.Text = "Process name";
+            this.columnProcessName.Text = rm.GetString("ColumnProcessNameText", CultureInfo.InvariantCulture);
             this.columnProcessName.Width = 325;
             // 
             // labelProcessName
@@ -68,7 +73,7 @@ namespace AttachToolbar
             this.labelProcessName.Name = "labelProcessName";
             this.labelProcessName.Size = new System.Drawing.Size(128, 28);
             this.labelProcessName.TabIndex = 5;
-            this.labelProcessName.Text = "Process name:";
+            this.labelProcessName.Text = rm.GetString("LabelProcessNameText", CultureInfo.InvariantCulture);
             // 
             // buttonRemove
             // 
@@ -77,7 +82,7 @@ namespace AttachToolbar
             this.buttonRemove.Name = "buttonRemove";
             this.buttonRemove.Size = new System.Drawing.Size(108, 31);
             this.buttonRemove.TabIndex = 2;
-            this.buttonRemove.Text = "Remove";
+            this.buttonRemove.Text = rm.GetString("ButtonRemoveText", CultureInfo.InvariantCulture);
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
@@ -88,7 +93,7 @@ namespace AttachToolbar
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(108, 31);
             this.buttonClear.TabIndex = 3;
-            this.buttonClear.Text = "Clear";
+            this.buttonClear.Text = rm.GetString("ButtonClearText", CultureInfo.InvariantCulture);
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 

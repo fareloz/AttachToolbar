@@ -19,7 +19,7 @@ namespace AttachToolbar {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,51 @@ namespace AttachToolbar {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string ButtonAddText {
+            get {
+                return ResourceManager.GetString("ButtonAddText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string ButtonClearText {
+            get {
+                return ResourceManager.GetString("ButtonClearText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        internal static string ButtonRemoveText {
+            get {
+                return ResourceManager.GetString("ButtonRemoveText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process name.
+        /// </summary>
+        internal static string ColumnProcessNameText {
+            get {
+                return ResourceManager.GetString("ColumnProcessNameText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process name:.
+        /// </summary>
+        internal static string LabelProcessNameText {
+            get {
+                return ResourceManager.GetString("LabelProcessNameText", resourceCulture);
             }
         }
     }
