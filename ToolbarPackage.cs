@@ -23,6 +23,8 @@ namespace AttachToolbar
         protected override void Initialize()
         {
             base.Initialize();
+
+            ThreadHelper.ThrowIfNotOnUIThread();
             _env = GetService(typeof(SDTE)) as DTE2;
             if (_env == null)
                 throw new Exception("Failed to get DTE service.");
@@ -33,6 +35,7 @@ namespace AttachToolbar
 
         private void InitializeControls()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             _controller = new ToolbarController(_env);
 
             OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
@@ -150,11 +153,13 @@ namespace AttachToolbar
 
         private void OnAttachButtonClickCallback(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             _controller.Attach(State.ProcessName, State.EngineType, ToolbarController.AttachType.First);
         }
 
         private void OnAttachToAllButtonClickCallback(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             _controller.Attach(State.ProcessName, State.EngineType, ToolbarController.AttachType.ToAll);
         }
 

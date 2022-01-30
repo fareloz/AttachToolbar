@@ -45,12 +45,14 @@ namespace AttachToolbar
                     process.Attach2(engines);
                     found = true;
 
+                    ThreadHelper.ThrowIfNotOnUIThread();
                     outputWindow?.OutputStringThreadSafe($"Attach Toolbar: Attached to {processName}[{process.ProcessID}].{Environment.NewLine}");
                     if (attachType == AttachType.First)
                         break;
                 }
                 catch (COMException)
                 {
+                    ThreadHelper.ThrowIfNotOnUIThread();
                     outputWindow?.OutputStringThreadSafe($"Attach Toolbar: Failed to attach to {processName}[{process.ProcessID}].{Environment.NewLine}");
                 }
             }
@@ -66,6 +68,7 @@ namespace AttachToolbar
 
         private static IVsOutputWindowPane GetOutputWindow()
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             IVsOutputWindow outWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
             IVsOutputWindowPane debugOutputWindow;
             Guid generalPaneGuid = VSConstants.GUID_OutWindowDebugPane;
