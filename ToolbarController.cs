@@ -45,13 +45,13 @@ namespace AttachToolbar
                     process.Attach2(engines);
                     found = true;
 
-                    outputWindow?.OutputString($"Attach Toolbar: Attached to {processName}[{process.ProcessID}].{Environment.NewLine}");
+                    outputWindow?.OutputStringThreadSafe($"Attach Toolbar: Attached to {processName}[{process.ProcessID}].{Environment.NewLine}");
                     if (attachType == AttachType.First)
                         break;
                 }
                 catch (COMException)
                 {
-                    outputWindow?.OutputString($"Attach Toolbar: Failed to attach to {processName}[{process.ProcessID}].{Environment.NewLine}");
+                    outputWindow?.OutputStringThreadSafe($"Attach Toolbar: Failed to attach to {processName}[{process.ProcessID}].{Environment.NewLine}");
                 }
             }
 
