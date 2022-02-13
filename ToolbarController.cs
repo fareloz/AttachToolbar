@@ -32,13 +32,13 @@ namespace AttachToolbar
                 AttachFirst(processName, engines) :
                 AttachAll(processName, engines);
 
-            if (!found)
-            {
-                MessageBox.Show( $"No processes with name {processName} are found.",
-                    "Attach Toolbar",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error );
-            }
+            if (found)
+                return;
+
+            MessageBox.Show( $"No processes with name {processName} are found.",
+                "Attach Toolbar",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error );
         }
 
         private bool AttachFirst(string processName, Engine[] engines)
