@@ -21,20 +21,16 @@ namespace AttachToolbar
             _dbg = dbg;
         }
 
-        public void Attach(string processName, EngineType attachEngineType, AttachType attachType) 
+        public void Attach(string processName, EngineType engineType, AttachType attachType) 
         {
             if(string.IsNullOrEmpty(processName))
                 return;
 
-            bool found = false;
             Transport transport = _dbg.Transports.Item("default");
-            Engine[] engines = { transport.Engines.Item(attachEngineType.GetEngineName()) };
-            foreach (Process2 process in GetProcesses(processName))
-            {
-                found = found || AttachProcess(process, engines);
-                if (found && attachType == AttachType.First)
-                    break;
-            }
+            Engine[] engines = { transport.Engines.Item(engineType.GetEngineName()) };
+            bool found = (attachType == AttachType.First) ?
+                AttachFirst(processName, engines) :
+                AttachAll(processName, engines);
 
             if (!found)
             {
@@ -43,6 +39,16 @@ namespace AttachToolbar
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error );
             }
+        }
+
+        private bool AttachFirst(string processName, Engine[] engines)
+        {
+            return GetProcesses(processName).Any(p => AttachProcess(p, engines));
+        }
+
+        private bool AttachAll(string processName, Engine[] engines)
+        {
+            return GetProcesses(processName).Where(p => AttachProcess(p, engines)).Count() > 0;
         }
 
         private bool AttachProcess(Process2 process, Engine[] engines)
