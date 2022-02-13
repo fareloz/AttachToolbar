@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using EnvDTE80;
@@ -27,13 +29,8 @@ namespace AttachToolbar
             bool found = false;
             Transport transport = _dbg.Transports.Item("default");
             Engine[] engines = { transport.Engines.Item(attachEngineType.GetEngineName()) };
-            foreach (Process2 process in _dbg.LocalProcesses)
+            foreach (Process2 process in GetProcesses(processName))
             {
-                string fileName = Path.GetFileName(process.Name);
-                bool? validProcess = fileName?.Equals(processName, StringComparison.InvariantCultureIgnoreCase);
-                if (validProcess == null || validProcess == false)
-                    continue;
-
                 try
                 {
                     process.Attach2(engines);
@@ -55,6 +52,15 @@ namespace AttachToolbar
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error );
             }
+        }
+
+        private List<Process2> GetProcesses(string processName)
+        {
+            var processes =
+                from p in _dbg.LocalProcesses.Cast<Process2>().ToList()
+                where Path.GetFileName(p.Name)?.Equals(processName, StringComparison.InvariantCultureIgnoreCase) == true
+                select p;
+            return processes.ToList();
         }
 
         private readonly Debugger2 _dbg;
