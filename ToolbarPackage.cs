@@ -103,14 +103,14 @@ namespace AttachToolbar
         private void OnProgramsComboGetList(object sender, EventArgs e)
         {
             OleMenuCmdEventArgs eventArgs = e as OleMenuCmdEventArgs;
-            if (eventArgs != null)
+            if (eventArgs == null)
+                return;
+
+            IntPtr outValue = eventArgs.OutValue;
+            if (outValue != IntPtr.Zero)
             {
-                IntPtr outValue = eventArgs.OutValue;
-                if (outValue != IntPtr.Zero)
-                {
-                    string[] values = State.ProcessList.ToArray();
-                    Marshal.GetNativeVariantForObject(values, outValue);
-                }
+                string[] values = State.ProcessList.ToArray();
+                Marshal.GetNativeVariantForObject(values, outValue);
             }
         }
 
