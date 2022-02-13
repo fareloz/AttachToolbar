@@ -143,14 +143,13 @@ namespace AttachToolbar
                 return;
 
             IntPtr outValue = eventArgs.OutValue;
-            if (outValue != IntPtr.Zero)
-            {
-                Array enumValues = Enum.GetValues(typeof(EngineType));
-                string[] values = Array.ConvertAll(enumValues as EngineType[],
-                    (attachtype) => attachtype.GetEngineName());
+            if (outValue == IntPtr.Zero)
+                return;
 
-                Marshal.GetNativeVariantForObject(values, outValue);
-            }
+            Array enumValues = Enum.GetValues(typeof(EngineType));
+            string[] values = Array.ConvertAll(enumValues as EngineType[],
+                (attachtype) => attachtype.GetEngineName());
+            Marshal.GetNativeVariantForObject(values, outValue);
         }
 
         private void OnAttachButtonClickCallback(object sender, EventArgs e)
