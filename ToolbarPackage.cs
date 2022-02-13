@@ -5,12 +5,14 @@ using System;
 using System.ComponentModel.Design;
 using System.Resources;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 
 [assembly: NeutralResourcesLanguage("en")]
 
 namespace AttachToolbar
 {
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading=true)]
     [InstalledProductRegistration("#100", "#102", "1.1", IconResourceID = 400)]
 
     [ProvideMenuResource("Menus.ctmenu", 1)]
@@ -18,27 +20,24 @@ namespace AttachToolbar
         PkgCmdIDList.cmdidOptionsCategory, PkgCmdIDList.cmdidOptionsPage, true)]
 
     [Guid(GuidList.guidAttachToolbarPkgString)]
-    public sealed class ToolbarPackage : Package
+    public sealed class ToolbarPackage : AsyncPackage
     {
-        protected override void Initialize()
+        protected async override Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            base.Initialize();
-
-            ThreadHelper.ThrowIfNotOnUIThread();
-            _env = GetService(typeof(SDTE)) as DTE2;
+            await base.InitializeAsync(cancellationToken, progress);
+            _env = await GetServiceAsync(typeof(SDTE)) as DTE2;
             if (_env == null)
                 throw new Exception("Failed to get DTE service.");
 
             State.Settings = new SettingsManager(this);
-            InitializeControls();
+            await InitializeControlsAsync();
         }
 
-        private void InitializeControls()
+        private async Task InitializeControlsAsync()
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
             _controller = new ToolbarController(_env);
 
-            OleMenuCommandService mcs = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
+            OleMenuCommandService mcs = await GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (mcs == null)
                 throw new Exception("Failed to get Menu command service.");
 
