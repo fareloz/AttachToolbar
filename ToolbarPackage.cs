@@ -120,15 +120,16 @@ namespace AttachToolbar
             if (eventArgs == null)
                 return;
 
-            string newChoice = eventArgs.InValue as string;
             IntPtr outValue = eventArgs.OutValue;
-
             if (outValue != IntPtr.Zero)
             {
                 // when outValue is non-null, the IDE is requesting the current value for the combo
                 Marshal.GetNativeVariantForObject(State.EngineType.GetEngineName(), outValue);
+                return;
             }
-            else if (newChoice != null)
+
+            string newChoice = eventArgs.InValue as string;
+            if (newChoice != null)
             {
                 State.EngineType = newChoice.GetAttachType();
                 State.Settings.SaveSettings();
