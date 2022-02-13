@@ -154,13 +154,11 @@ namespace AttachToolbar
 
         private void OnAttachButtonClickCallback(object sender, EventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
             _controller.Attach(State.ProcessName, State.EngineType, ToolbarController.AttachType.First);
         }
 
         private void OnAttachToAllButtonClickCallback(object sender, EventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
             _controller.Attach(State.ProcessName, State.EngineType, ToolbarController.AttachType.ToAll);
         }
 
