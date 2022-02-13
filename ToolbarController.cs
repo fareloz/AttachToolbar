@@ -19,8 +19,7 @@ namespace AttachToolbar
 
         public ToolbarController(DTE2 dte)
         {
-            _env = dte;
-            _dbg = _env.Debugger as Debugger2;
+            _dbg = dte.Debugger as Debugger2;
         }
 
         public void Attach(string processName, EngineType attachEngineType, AttachType attachType) 
@@ -76,7 +75,6 @@ namespace AttachToolbar
             return debugOutputWindow;
         }
 
-        private readonly DTE2 _env;
         private readonly Debugger2 _dbg;
     }
 }
