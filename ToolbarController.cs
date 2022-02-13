@@ -31,18 +31,9 @@ namespace AttachToolbar
             Engine[] engines = { transport.Engines.Item(attachEngineType.GetEngineName()) };
             foreach (Process2 process in GetProcesses(processName))
             {
-                try
-                {
-                    process.Attach2(engines);
-                    found = true;
-                    _ = OutputWIndow.MessageAsync($"Attach Toolbar: Attached to {processName}[{process.ProcessID}].{Environment.NewLine}");
-                    if (attachType == AttachType.First)
-                        break;
-                }
-                catch (COMException)
-                {
-                    _ = OutputWIndow.MessageAsync($"Attach Toolbar: Failed to attach to {processName}[{process.ProcessID}].{Environment.NewLine}");
-                }
+                found = found || AttachProcess(process, engines);
+                if (found && attachType == AttachType.First)
+                    break;
             }
 
             if (!found)
@@ -51,6 +42,21 @@ namespace AttachToolbar
                     "Attach Toolbar",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error );
+            }
+        }
+
+        private bool AttachProcess(Process2 process, Engine[] engines)
+        {
+            try
+            {
+                process.Attach2(engines);
+                _ = OutputWIndow.MessageAsync($"Attach Toolbar: Attached to {process.Name}[{process.ProcessID}].{Environment.NewLine}");
+                return true;
+            }
+            catch (COMException)
+            {
+                _ = OutputWIndow.MessageAsync($"Attach Toolbar: Failed to attach to {process.Name}[{process.ProcessID}].{Environment.NewLine}");
+                return false;
             }
         }
 
