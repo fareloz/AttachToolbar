@@ -17,9 +17,9 @@ namespace AttachToolbar
             ToAll
         }
 
-        public ToolbarController(DTE2 dte)
+        public ToolbarController(Debugger2 dbg)
         {
-            _dbg = dte.Debugger as Debugger2;
+            _dbg = dbg;
         }
 
         public void Attach(string processName, EngineType attachEngineType, AttachType attachType) 

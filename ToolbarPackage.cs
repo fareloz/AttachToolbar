@@ -33,7 +33,7 @@ namespace AttachToolbar
             if (_env == null)
                 throw new Exception("Failed to get DTE service.");
 
-            _controller = new ToolbarController(_env);
+            _controller = new ToolbarController(_env.Debugger as Debugger2);
             State.Settings = new SettingsManager(this);
             await InitializeControlsAsync();
         }
