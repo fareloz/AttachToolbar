@@ -89,6 +89,7 @@
     <Compile Include="OptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="OutputWIndow.cs" />
     <Compile Include="ToolbarController.cs" />
     <Compile Include="EngineType.cs" />
     <Compile Include="Guids.cs" />
