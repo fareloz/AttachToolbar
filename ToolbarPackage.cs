@@ -1,4 +1,5 @@
 ﻿using EnvDTE80;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
@@ -18,6 +19,9 @@ namespace AttachToolbar
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideOptionPage(typeof(OptionsPage), "Attach Toolbar", "General Settings", 
         PkgCmdIDList.cmdidOptionsCategory, PkgCmdIDList.cmdidOptionsPage, true)]
+
+    [ProvideAutoLoad(VSConstants.UICONTEXT.NoSolution_string, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideAutoLoad(VSConstants.UICONTEXT.SolutionExists_string, PackageAutoLoadFlags.BackgroundLoad)]
 
     [Guid(GuidList.guidAttachToolbarPkgString)]
     public sealed class ToolbarPackage : AsyncPackage
