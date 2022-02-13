@@ -3,9 +3,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using EnvDTE80;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 
 namespace AttachToolbar
 {
@@ -30,8 +27,6 @@ namespace AttachToolbar
             bool found = false;
             Transport transport = _dbg.Transports.Item("default");
             Engine[] engines = { transport.Engines.Item(attachEngineType.GetEngineName()) };
-            var outputWindow = GetOutputWindow();
-
             foreach (Process2 process in _dbg.LocalProcesses)
             {
                 string fileName = Path.GetFileName(process.Name);
@@ -43,16 +38,13 @@ namespace AttachToolbar
                 {
                     process.Attach2(engines);
                     found = true;
-
-                    ThreadHelper.ThrowIfNotOnUIThread();
-                    outputWindow?.OutputStringThreadSafe($"Attach Toolbar: Attached to {processName}[{process.ProcessID}].{Environment.NewLine}");
+                    _ = OutputWIndow.MessageAsync($"Attach Toolbar: Attached to {processName}[{process.ProcessID}].{Environment.NewLine}");
                     if (attachType == AttachType.First)
                         break;
                 }
                 catch (COMException)
                 {
-                    ThreadHelper.ThrowIfNotOnUIThread();
-                    outputWindow?.OutputStringThreadSafe($"Attach Toolbar: Failed to attach to {processName}[{process.ProcessID}].{Environment.NewLine}");
+                    _ = OutputWIndow.MessageAsync($"Attach Toolbar: Failed to attach to {processName}[{process.ProcessID}].{Environment.NewLine}");
                 }
             }
 
@@ -63,16 +55,6 @@ namespace AttachToolbar
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error );
             }
-        }
-
-        private static IVsOutputWindowPane GetOutputWindow()
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            IVsOutputWindow outWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;
-            IVsOutputWindowPane debugOutputWindow;
-            Guid generalPaneGuid = VSConstants.GUID_OutWindowDebugPane;
-            outWindow.GetPane(ref generalPaneGuid, out debugOutputWindow);
-            return debugOutputWindow;
         }
 
         private readonly Debugger2 _dbg;
