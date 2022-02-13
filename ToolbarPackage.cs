@@ -139,17 +139,17 @@ namespace AttachToolbar
         private void OnEnginesComboGetList(object sender, EventArgs e)
         {
             OleMenuCmdEventArgs eventArgs = e as OleMenuCmdEventArgs;
-            if (eventArgs != null)
-            {
-                IntPtr outValue = eventArgs.OutValue;
-                if (outValue != IntPtr.Zero)
-                {
-                    Array enumValues = Enum.GetValues(typeof(EngineType));
-                    string[] values = Array.ConvertAll(enumValues as EngineType[],
-                        (attachtype) => attachtype.GetEngineName());
+            if (eventArgs == null)
+                return;
 
-                    Marshal.GetNativeVariantForObject(values, outValue);
-                }
+            IntPtr outValue = eventArgs.OutValue;
+            if (outValue != IntPtr.Zero)
+            {
+                Array enumValues = Enum.GetValues(typeof(EngineType));
+                string[] values = Array.ConvertAll(enumValues as EngineType[],
+                    (attachtype) => attachtype.GetEngineName());
+
+                Marshal.GetNativeVariantForObject(values, outValue);
             }
         }
 
