@@ -79,24 +79,23 @@ namespace AttachToolbar
 
         private void OnProgramsComboItemSelection(object sender, EventArgs e)
         {
-            
             OleMenuCmdEventArgs eventArgs = e as OleMenuCmdEventArgs;
-            if (eventArgs != null)
-            {
-                string newChoice = eventArgs.InValue as string;
-                IntPtr outValue = eventArgs.OutValue;
+            if (eventArgs == null)
+                return;
 
-                if (outValue != IntPtr.Zero)
-                {
-                    // when vOut is non-null, the IDE is requesting the current value for the combo
-                    Marshal.GetNativeVariantForObject(State.ProcessName, outValue);
-                }
-                else if (newChoice != null)
-                {
-                    // new value was selected or typed in
-                    State.ProcessName = newChoice;
-                    State.Settings.SaveSettings();
-                }
+            string newChoice = eventArgs.InValue as string;
+            IntPtr outValue = eventArgs.OutValue;
+
+            if (outValue != IntPtr.Zero)
+            {
+                // when vOut is non-null, the IDE is requesting the current value for the combo
+                Marshal.GetNativeVariantForObject(State.ProcessName, outValue);
+            }
+            else if (newChoice != null)
+            {
+                // new value was selected or typed in
+                State.ProcessName = newChoice;
+                State.Settings.SaveSettings();
             }
         }
 
