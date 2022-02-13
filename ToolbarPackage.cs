@@ -114,25 +114,24 @@ namespace AttachToolbar
             Marshal.GetNativeVariantForObject(values, outValue);
         }
 
-
         private void OnEnginesComboItemSelection(object sender, EventArgs e)
         {
             OleMenuCmdEventArgs eventArgs = e as OleMenuCmdEventArgs;
-            if (eventArgs != null)
-            {
-                string newChoice = eventArgs.InValue as string;
-                IntPtr outValue = eventArgs.OutValue;
+            if (eventArgs == null)
+                return;
 
-                if (outValue != IntPtr.Zero)
-                {
-                    // when outValue is non-null, the IDE is requesting the current value for the combo
-                    Marshal.GetNativeVariantForObject(State.EngineType.GetEngineName(), outValue);
-                }
-                else if (newChoice != null)
-                {
-                    State.EngineType = newChoice.GetAttachType();
-                    State.Settings.SaveSettings();
-                }
+            string newChoice = eventArgs.InValue as string;
+            IntPtr outValue = eventArgs.OutValue;
+
+            if (outValue != IntPtr.Zero)
+            {
+                // when outValue is non-null, the IDE is requesting the current value for the combo
+                Marshal.GetNativeVariantForObject(State.EngineType.GetEngineName(), outValue);
+            }
+            else if (newChoice != null)
+            {
+                State.EngineType = newChoice.GetAttachType();
+                State.Settings.SaveSettings();
             }
         }
 
