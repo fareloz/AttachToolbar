@@ -33,14 +33,13 @@ namespace AttachToolbar
             if (_env == null)
                 throw new Exception("Failed to get DTE service.");
 
+            _controller = new ToolbarController(_env);
             State.Settings = new SettingsManager(this);
             await InitializeControlsAsync();
         }
 
         private async Task InitializeControlsAsync()
         {
-            _controller = new ToolbarController(_env);
-
             OleMenuCommandService mcs = await GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (mcs == null)
                 throw new Exception("Failed to get Menu command service.");
