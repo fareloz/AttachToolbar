@@ -107,11 +107,11 @@ namespace AttachToolbar
                 return;
 
             IntPtr outValue = eventArgs.OutValue;
-            if (outValue != IntPtr.Zero)
-            {
-                string[] values = State.ProcessList.ToArray();
-                Marshal.GetNativeVariantForObject(values, outValue);
-            }
+            if (outValue == IntPtr.Zero)
+                return;
+            
+            string[] values = State.ProcessList.ToArray();
+            Marshal.GetNativeVariantForObject(values, outValue);
         }
 
 
