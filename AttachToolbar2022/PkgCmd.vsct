@@ -105,8 +105,8 @@
         </Buttons>
 
         <Bitmaps>
-            <Bitmap guid="guidAttachImage" href="Resources\AttachButton.ico" usedList="bmpPicAttach" />
-            <Bitmap guid="guidAttachToAllImage" href="Resources\AttachToAllButton.ico" usedList="bmpPicAttachToAll" />
+            <Bitmap guid="guidAttachImage" href="..\SharedFiles\AttachButton.ico" usedList="bmpPicAttach" />
+            <Bitmap guid="guidAttachToAllImage" href="..\SharedFiles\AttachToAllButton.ico" usedList="bmpPicAttachToAll" />
         </Bitmaps>
 
     </Commands>
