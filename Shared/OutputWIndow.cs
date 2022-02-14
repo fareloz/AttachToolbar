@@ -15,13 +15,13 @@ namespace AttachToolbar
             get { return lazy.Value; } 
         }
 
-        public async static Task MessageAsync(string txt)
+        public async static System.Threading.Tasks.Task MessageAsync(string txt)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             window.OutputStringThreadSafe(txt);
         }
 
-        private async static Task<IVsOutputWindowPane> GetOutputWindowAsync()
+        private async static System.Threading.Tasks.Task<IVsOutputWindowPane> GetOutputWindowAsync()
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             IVsOutputWindow outWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;

@@ -26,7 +26,7 @@ namespace AttachToolbar
     [Guid(GuidList.guidAttachToolbarPkgString)]
     public sealed class ToolbarPackage : AsyncPackage
     {
-        protected async override Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
+        protected async override System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await base.InitializeAsync(cancellationToken, progress);
             _env = await GetServiceAsync(typeof(SDTE)) as DTE2;
@@ -38,7 +38,7 @@ namespace AttachToolbar
             await InitializeControlsAsync();
         }
 
-        private async Task InitializeControlsAsync()
+        private async System.Threading.Tasks.Task InitializeControlsAsync()
         {
             OleMenuCommandService mcs = await GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (mcs == null)
