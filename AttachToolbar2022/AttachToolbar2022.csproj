@@ -139,7 +139,7 @@
       <Version>17.0.32112.339</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="Shared\Shared.projitems" Label="Shared" />
+  <Import Project="..\Shared\Shared.projitems" Label="Shared" />
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
   </PropertyGroup>
