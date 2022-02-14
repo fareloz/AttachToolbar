@@ -19,6 +19,11 @@ Attach Toolbar has ability to use different engine types:
 
 ![Screenshot](https://fareloz.gallerycdn.vsassets.io/extensions/fareloz/attachtoolbar/2.2/1510410307285/286944/1/Snipaste_2017-11-11_16-22-21.png)
 
+## In version 2.3.1
+
+- AsyncPackage support
+- Split extensions fore VS 2019 and VS 2022
+
 ## In version 2.3
 
 - VS 2022 support
